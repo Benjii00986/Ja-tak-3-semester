@@ -1,5 +1,46 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<JaTakApp.Models.OfferViewModel>
+
 @{
+    ViewData["Title"] = "Ja Tak tilbud";
 }
+
+<div class="offers-container">
+
+    <h1 class="offers-title">Ja Tak tilbud</h1>
+
+    <div class="offers-grid">
+
+        @foreach (var offer in Model)
+        {
+            <div class="offer-card">
+
+                <div class="offer-image">
+                    <img src="~/images/@offer.ImageUrl"
+                         alt="@offer.ProductName" />
+                </div>
+
+                <div class="offer-information">
+
+                    <h3>@offer.ProductName</h3>
+
+                    <div class="offer-bottom">
+
+                        <span class="offer-location">
+                            @offer.ShopName
+                        </span>
+
+                        <span class="offer-price">
+                            @offer.Price.ToString("N2",
+                                new System.Globalization.CultureInfo("da-DK")) kr.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>
