@@ -1,4 +1,17 @@
+using JaTak.DataAccess.Connections;
+using JaTak.DataAccess.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration
+    .GetConnectionString("JaTakDatabase")
+    ?? throw new InvalidOperationException(
+        "Connection string 'JaTakDatabase' was not found.");
+
+builder.Services.AddSingleton(
+    new SqlConnectionFactory(connectionString));
+
+builder.Services.AddScoped<OfferRepository>();
 
 // Add services to the container.
 
