@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../JaTakApp.api/JaTakApp.api.csproj" />
+  <Project Path="JaTak.App.csproj" />
+</Solution>
