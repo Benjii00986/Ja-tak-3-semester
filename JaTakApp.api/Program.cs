@@ -1,5 +1,6 @@
 using JaTak.DataAccess.Connections;
 using JaTak.DataAccess.Repositories;
+using JaTak.BusinessLogic.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,11 @@ builder.Services.AddSingleton(
 
 builder.Services.AddScoped<OfferRepository>();
 
+builder.Services.AddScoped<OfferService>();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -20,6 +26,12 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

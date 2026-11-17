@@ -9,15 +9,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.15" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\JaTak.BusinessLogic\JaTak.BusinessLogic.csproj" />
     <ProjectReference Include="..\JaTak.DataAccess\JaTak.DataAccess.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
