@@ -12,7 +12,7 @@
 
         @foreach (var offer in Model)
         {
-            <div class="offer-card">
+            <div class="offer-card" data-bs-toggle="modal" data-bs-target="#offer-@offer.OfferId">
 
                 <div class="offer-image">
                     <img src="~/images/@offer.ImageUrl"
@@ -44,3 +44,23 @@
     </div>
 
 </div>
+
+@foreach (var offer in Model)
+{
+    <div class="modal fade" id="offer-@offer.OfferId">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="~/images/@offer.ImageUrl" alt="@offer.ProductName" width="200" />
+                    <h3>@offer.ProductName</h3>
+                    <p>Butik: @offer.ShopName</p>
+                    <p>Beskrivelse: @offer.Description</p>
+                    <p>Afhentning: @offer.PickupPoint</p>
+                    <p>Pris: @offer.Price kr. (før @offer.OriginalPrice kr.)</p>
+                    <p>Tilbage: @offer.QuantityLeft af @offer.Quantity</p>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Luk</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
