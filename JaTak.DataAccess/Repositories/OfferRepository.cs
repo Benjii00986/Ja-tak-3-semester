@@ -72,5 +72,61 @@ namespace JaTak.DataAccess.Repositories
 
             return offers;
         }
+
+        public async Task<Offer?> GetOfferByIdAsync(int offerId)
+        {
+            Offer? foundOffer = null;
+
+            using SqlConnection connection = _connectionFactory.CreateConnection();
+
+            string query = """
+                SELECT OfferId, ProductName, Description,
+                ImageUrl, ShopName, Price, IsActive,
+                PickupPoint, OriginalPrice, Quantity,
+                QuantityLeft
+                From JaTakOffers
+                WHERE OfferId = @OfferId
+                """;
+
+            using SqlCommand command =
+                new SqlCommand(query, connection);
+
+            SqlParameter idParam = new
+            SqlParameter("@OfferId", offerId);
+            command.Parameters.Add(idParam);
+
+            await connection.OpenAsync();
+
+            using SqlDataReader reader =
+                    await command.ExecuteReaderAsync();
+
+            if (await reader.ReadAsync())
+            {
+                foundOffer = new Offer
+                {
+                    OfferId =
+            reader.GetInt32(reader.GetOrdinal("OfferId")),
+                    ProductName =
+            reader["ProductName"].ToString()!,
+                    Description =
+            reader["Description"].ToString()!,
+                    ImageUrl = reader["ImageUrl"].ToString()!,
+                    ShopName = reader["ShopName"].ToString()!,
+                    Price =
+            reader.GetDecimal(reader.GetOrdinal("Price")),
+                    IsActive =
+            reader.GetBoolean(reader.GetOrdinal("IsActive")),
+                    PickupPoint =
+            reader["PickupPoint"].ToString()!,
+                    OriginalPrice =
+            reader.GetDecimal(reader.GetOrdinal("OriginalPrice")),
+                    Quantity =
+            reader.GetInt32(reader.GetOrdinal("Quantity")),
+                    QuantityLeft =
+            reader.GetInt32(reader.GetOrdinal("QuantityLeft"))
+                };
+            }
+            return foundOffer;
+        }
     }
 }

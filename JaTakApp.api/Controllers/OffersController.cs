@@ -36,5 +36,33 @@ namespace JaTak.WebApi.Controllers
 
             return Ok(offerDtos);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<OfferDto>> GetOfferById(int id)
+        {
+            var offer = await _offerService.GetOfferByIdAsync(id);
+
+            if (offer == null)
+            {
+                return NotFound();
+            }
+
+            var offerDto = new OfferDto
+            {
+                OfferId = offer.OfferId,
+                ProductName = offer.ProductName,
+                Description = offer.Description,
+                ImageUrl = offer.ImageUrl,
+                ShopName = offer.ShopName,
+                Price = offer.Price,
+                PickupPoint = offer.PickupPoint,
+                OriginalPrice = offer.OriginalPrice,
+                Quantity = offer.Quantity,
+                QuantityLeft = offer.QuantityLeft
+            };
+
+            return Ok(offerDto);
+        }
+
     }
 }

@@ -16,5 +16,11 @@ namespace JaTak.BusinessLogic.Services
         {
             return await _offerRepository.GetActiveOffersAsync();
         }
+
+        public async Task<Offer?> GetOfferByIdAsync(int offerId)
+        {
+            return await
+            _offerRepository.GetOfferByIdAsync(offerId);
+        }
     }
 }
