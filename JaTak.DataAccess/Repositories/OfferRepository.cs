@@ -4,15 +4,34 @@ using Microsoft.Data.SqlClient;
 
 namespace JaTak.DataAccess.Repositories
 {
+
+    /// <summary>
+    /// Handles database operations related to offers.
+    /// Retrieves offer data from the JaTakOffers table.
+    /// </summary>
     public class OfferRepository
     {
         private readonly SqlConnectionFactory _connectionFactory;
 
+        /// <summary>
+        /// Initializes a new instance of the OfferRepository class.
+        /// </summary>
+        /// <param name="connectionFactory">
+        /// Factory used to create SQL database connections.
+        /// </param>
         public OfferRepository(SqlConnectionFactory connectionFactory)
         {
             _connectionFactory = connectionFactory;
         }
 
+        /// <summary>
+        /// Retrieves all active offers from the database.
+        /// The offers are ordered by their unique ID.
+        /// </summary>
+        /// <returns>
+        /// A list containing all active offers.
+        /// Returns an empty list if no active offers are found.
+        /// </returns>
         public async Task<List<Offer>> GetActiveOffersAsync()
         {
             List<Offer> offers = new List<Offer>();
@@ -73,6 +92,13 @@ namespace JaTak.DataAccess.Repositories
             return offers;
         }
 
+        // <summary>
+        /// Retrieves a specific offer from the database using its ID.
+        /// </summary>
+        /// <param name="offerId">The unique ID of the offer to retrieve.</param>
+        /// <returns>
+        /// The matching offer if found; otherwise, null.
+        /// </returns>
         public async Task<Offer?> GetOfferByIdAsync(int offerId)
         {
             Offer? foundOffer = null;
