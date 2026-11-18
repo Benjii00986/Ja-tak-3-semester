@@ -27,7 +27,11 @@ namespace JaTak.WebApi.Controllers
                 Description = offer.Description,
                 ImageUrl = offer.ImageUrl,
                 ShopName = offer.ShopName,
-                Price = offer.Price
+                Price = offer.Price,
+                PickupPoint = offer.PickupPoint,
+                OriginalPrice = offer.OriginalPrice,
+                Quantity = offer.Quantity,
+                QuantityLeft = offer.QuantityLeft,
             }).ToList();
 
             return Ok(offerDtos);

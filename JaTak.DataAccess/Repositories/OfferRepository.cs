@@ -24,7 +24,8 @@ namespace JaTak.DataAccess.Repositories
 
             string query = """
                 SELECT OfferId, ProductName, Description,
-                       ImageUrl, ShopName, Price, IsActive
+                ImageUrl, ShopName, Price, IsActive,
+                PickupPoint, OriginalPrice, Quantity, QuantityLeft
                 FROM JaTakOffers
                 WHERE IsActive = 1
                 ORDER BY OfferId
@@ -55,7 +56,15 @@ namespace JaTak.DataAccess.Repositories
                         reader.GetOrdinal("Price")),
 
                     IsActive = reader.GetBoolean(
-                        reader.GetOrdinal("IsActive"))
+                        reader.GetOrdinal("IsActive")),
+
+                    PickupPoint = reader["PickupPoint"].ToString()!,
+
+                    OriginalPrice = reader.GetDecimal(reader.GetOrdinal("OriginalPrice")),
+
+                    Quantity = reader.GetInt32(reader.GetOrdinal("Quantity")),
+
+                    QuantityLeft = reader.GetInt32(reader.GetOrdinal("QuantityLeft"))
                 };
 
                 offers.Add(offer);
