@@ -47,6 +47,8 @@ namespace JaTak.WebApi.Controllers
                 ShopName = offer.ShopName,
                 Price = offer.Price,
                 PickupPoint = offer.PickupPoint,
+                PickupStartDateTime = offer.PickupStartDateTime,
+                PickupEndDateTime = offer.PickupEndDateTime,
                 OriginalPrice = offer.OriginalPrice,
                 Quantity = offer.Quantity,
                 QuantityLeft = offer.QuantityLeft,
@@ -82,6 +84,8 @@ namespace JaTak.WebApi.Controllers
                 ShopName = offer.ShopName,
                 Price = offer.Price,
                 PickupPoint = offer.PickupPoint,
+                PickupStartDateTime = offer.PickupStartDateTime,
+                PickupEndDateTime = offer.PickupEndDateTime,
                 OriginalPrice = offer.OriginalPrice,
                 Quantity = offer.Quantity,
                 QuantityLeft = offer.QuantityLeft

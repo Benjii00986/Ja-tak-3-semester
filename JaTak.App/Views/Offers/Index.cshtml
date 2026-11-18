@@ -12,7 +12,12 @@
 
         @foreach (var offer in Model)
         {
-            <div class="offer-card" data-bs-toggle="modal" data-bs-target="#offer-@offer.OfferId">
+            <!-- Clickable offer card that opens the corresponding modal. -->
+            <div class="offer-card"
+                 role="button"
+                 tabindex="0"
+                 data-bs-toggle="modal"
+                 data-bs-target="#offer-@offer.OfferId">
 
                 <div class="offer-image">
                     <img src="~/images/@offer.ImageUrl"
@@ -45,22 +50,85 @@
 
 </div>
 
+<!-- Creates a separate details modal for each offer. -->
 @foreach (var offer in Model)
 {
-    <div class="modal fade" id="offer-@offer.OfferId">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <img src="~/images/@offer.ImageUrl" alt="@offer.ProductName" width="200" />
-                    <h3>@offer.ProductName</h3>
-                    <p>Butik: @offer.ShopName</p>
-                    <p>Beskrivelse: @offer.Description</p>
-                    <p>Afhentning: @offer.PickupPoint</p>
-                    <p>Pris: @offer.Price kr. (før @offer.OriginalPrice kr.)</p>
-                    <p>Tilbage: @offer.QuantityLeft af @offer.Quantity</p>
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Luk</button>
+    <div class="modal fade"
+         id="offer-@offer.OfferId"
+         tabindex="-1"
+         aria-labelledby="offer-title-@offer.OfferId"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered offer-details-dialog">
+
+            <div class="modal-content offer-details">
+
+                <!-- Modal header containing the close button. -->
+                <div class="modal-header offer-details-header">
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Luk">
+                    </button>
+
                 </div>
+
+                <!-- Offer information. -->
+                <div class="modal-body offer-details-body">
+
+                    <img src="~/images/@offer.ImageUrl"
+                         alt="@offer.ProductName"
+                         class="offer-details-image" />
+
+                    <h3 id="offer-title-@offer.OfferId">
+                        @offer.ProductName
+                    </h3>
+
+                    <p>
+                        Butik: @offer.ShopName
+                    </p>
+
+                    <p>
+                        Beskrivelse: @offer.Description
+                    </p>
+
+                    <p>
+                        Afhentningssted: @offer.PickupPoint
+                    </p>
+
+                    @if (offer.PickupStartDateTime.HasValue &&
+                         offer.PickupEndDateTime.HasValue)
+                    {
+                        <p>
+                            Afhentning:
+                            @offer.PickupStartDateTime.Value.ToString("dd-MM-yyyy")
+                            kl.
+                            @offer.PickupStartDateTime.Value.ToString("HH:mm")–@offer.PickupEndDateTime.Value.ToString("HH:mm")
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            Afhentningstid: Ikke angivet
+                        </p>
+                    }
+
+                    <p>
+                        Pris:
+                        @offer.Price.ToString("N2", new System.Globalization.CultureInfo("da-DK")) kr.
+                        (før @offer.OriginalPrice.ToString("N2", new System.Globalization.CultureInfo("da-DK")) kr.)
+                    </p>
+
+                    <p>
+                        Tilbage: @offer.QuantityLeft af @offer.Quantity
+                    </p>
+
+                </div>
+
             </div>
+
         </div>
+
     </div>
 }

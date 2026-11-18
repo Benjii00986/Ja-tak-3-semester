@@ -1,33 +1,42 @@
+/* General styling */
+
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* Focus styling for interactive elements. */
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+/* Placeholder styling for floating form fields. */
+
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
 }
 
 /* Offers overview */
@@ -54,6 +63,7 @@ body {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 20px;
+    align-items: start;
 }
 
 /* Offer card */
@@ -64,20 +74,48 @@ body {
     overflow: hidden;
     background: white;
     min-width: 0;
+    height: 360px;
+    /* Indicates that the offer card is clickable. */
+    cursor: pointer;
+    /* Smooth transition when hovering over an offer. */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+    /* Visual feedback when the user hovers over an offer. */
+
+    .offer-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+/* Removes hover animations on devices without hover support. */
+
+@media (hover: none) {
+    .offer-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
 }
 
 /* Product image */
 
 .offer-image {
     height: 220px;
+    min-height: 220px;
     width: 100%;
-    border-bottom: 3px solid #222;
+    border-bottom: 2px solid #222;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
+    box-sizing: border-box;
 }
+
     .offer-image img {
+        max-width: 100%;
+        max-height: 100%;
         width: 100%;
         height: 100%;
         object-fit: contain;
@@ -86,12 +124,13 @@ body {
 /* Product information */
 
 .offer-information {
-    padding: 18px 22px 22px;
-    min-height: 110px;
+    padding: 18px 16px;
+    flex: 1;
+    min-height: 0;
 }
 
     .offer-information h3 {
-        font-size: 21px;
+        font-size: 23px;
         font-weight: 600;
         margin-bottom: 12px;
     }
@@ -130,4 +169,47 @@ body {
     .offers-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Offer details modal */
+
+.offer-details-dialog {
+    max-width: 600px;
+    width: calc(100% - 30px);
+}
+
+.offer-details {
+    width: 100%;
+}
+
+/* Modal header */
+
+.offer-details-header {
+    border-bottom: none;
+}
+
+/* Offer details image */
+
+.offer-details-image {
+    height: 200px;
+    width: 100%;
+    object-fit: contain;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+/* Offer details text */
+
+.offer-details-body h3 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.offer-details-body p {
+    font-size: 19px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    overflow-wrap: break-word;
 }

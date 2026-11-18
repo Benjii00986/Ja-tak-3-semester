@@ -52,6 +52,16 @@ namespace JaTak.DataAccess.Models
         public string PickupPoint { get; set; }
 
         /// <summary>
+        /// Gets or sets the starting date and time for product pickup.
+        /// </summary>
+        public DateTime? PickupStartDateTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ending date and time for product pickup.
+        /// </summary>
+        public DateTime? PickupEndDateTime { get; set; }
+
+        /// <summary>
         /// Gets or sets the original price of the product before the discount.
         /// </summary>
         public decimal OriginalPrice { get; set; }
