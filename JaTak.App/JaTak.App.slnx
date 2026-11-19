@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/Infrastructure/" />
+  <Folder Name="/Infrastructure/Keycloak/">
+    <File Path="docker-compose.yml" />
+  </Folder>
   <Project Path="../JaTak.BusinessLogic/JaTak.BusinessLogic.csproj" Id="5d60633b-74a9-41af-9538-30859a799965" />
   <Project Path="../JaTak.DataAccess/JaTak.DataAccess.csproj" Id="62f081bf-cdac-48ca-bd6c-67caf2cb5cb4" />
   <Project Path="../JaTakApp.api/JaTak.WebApi.csproj" />
