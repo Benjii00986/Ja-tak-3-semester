@@ -1,8 +1,8 @@
-﻿using JaTakApp.Models;
+﻿using JaTak.App.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
 
-namespace JaTakApp.Controllers
+namespace JaTak.App.Controllers
 {
     /// <summary>
     /// Handles displaying offers in the MVC application.

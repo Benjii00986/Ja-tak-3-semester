@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace JaTak.DataAccess.Models
+﻿namespace JaTak.DataAccess.Models
 {
     /// <summary>
     /// Represents a Ja Tak offer containing product information,
@@ -18,7 +14,6 @@ namespace JaTak.DataAccess.Models
         /// <summary>
         /// Gets or sets the name of the product being offered.
         /// </summary>
-
         public string ProductName { get; set; }
 
         /// <summary>

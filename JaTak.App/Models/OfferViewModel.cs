@@ -1,4 +1,4 @@
-﻿namespace JaTakApp.Models
+﻿namespace JaTak.App.Models
 {
     /// <summary>
     /// Represents the offer information displayed in the application's user interface.
