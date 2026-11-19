@@ -43,6 +43,7 @@ namespace JaTak.App.Models
         [Display(Name = "Gentag adgangskode")]
         [Required(ErrorMessage = "Gentag adgangskoden.")]
         [Compare(nameof(Password), ErrorMessage = "De to adgangskoder er ikke ens.")]
+        [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; } = string.Empty;
     }
 }

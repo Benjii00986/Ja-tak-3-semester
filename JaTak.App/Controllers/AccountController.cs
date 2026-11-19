@@ -17,5 +17,20 @@ namespace JaTak.App.Controllers
         {
             return View(new RegisterViewModel());
         }
+        /// <summary>
+        /// Shows the message that the account was created.
+        /// </summary>
+        /// <returns>The confirmation view, or the form if no account was just created.</returns>
+        [HttpGet]
+        public IActionResult RegisterConfirmation()
+        {
+            if (TempData["RegisteredEmail"] is not string email)
+            {
+                return RedirectToAction(nameof(Register));
+            }
+
+            ViewData["Email"] = email;
+            return View();
+        }
     }
 }
