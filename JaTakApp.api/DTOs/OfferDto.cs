@@ -33,7 +33,7 @@
 
         /// <summary>
         /// Gets or sets the discounted price of the product.
-        /// </summary>>
+        /// </summary>
         public decimal Price { get; set; }
 
         /// <summary>
