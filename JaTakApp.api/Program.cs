@@ -1,6 +1,8 @@
 using JaTak.DataAccess.Connections;
 using JaTak.DataAccess.Repositories;
 using JaTak.BusinessLogic.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 // Creates the application builder and loads configuration.
 var builder = WebApplication.CreateBuilder(args);
@@ -18,12 +20,46 @@ builder.Services.AddSingleton(
 // Registers the repository with scoped lifetime.
 builder.Services.AddScoped<OfferRepository>();
 
+// Registers the JaTak user repository with scoped lifetime.
+builder.Services.AddScoped<JaTakUserRepository>();
+
 // Registers the offer service with scoped lifetime.
 builder.Services.AddScoped<OfferService>();
+
+// Registers the JaTak user service with scoped lifetime.
+builder.Services.AddScoped<JaTakUserService>();
 
 // Registers services for API documentation and Swagger.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Configures JWT authentication using Keycloak.
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "http://localhost:8080/realms/JaTak";
+        options.Audience = "jatak-api";
+
+        options.MapInboundClaims = false;
+
+        options.RequireHttpsMetadata = false;
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = "http://localhost:8080/realms/JaTak",
+
+            ValidateAudience = true,
+            ValidAudience = "jatak-api",
+
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true
+        };
+    });
+
+// Registers authorization services.
+builder.Services.AddAuthorization();
 
 // Registers controllers for handling HTTP requests.
 builder.Services.AddControllers();
@@ -50,7 +86,10 @@ if (app.Environment.IsDevelopment())
 // Redirects HTTP requests to HTTPS.
 app.UseHttpsRedirection();
 
-// Enables authorization middleware.
+// Validates incoming authentication tokens.
+app.UseAuthentication();
+
+// Handles authorization requirements.
 app.UseAuthorization();
 
 // Maps controller endpoints to the request pipeline.

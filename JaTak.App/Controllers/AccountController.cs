@@ -1,36 +1,33 @@
-﻿using JaTak.App.Models;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
-namespace JaTak.App.Controllers
-{
-    /// <summary>
-    /// Handles the pages for creating a user account.
-    /// </summary>
-    public class AccountController : Controller
-    {
-        /// <summary>
-        /// Shows the empty create account form.
-        /// </summary>
-        /// <returns>The register view.</returns>
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View(new RegisterViewModel());
-        }
-        /// <summary>
-        /// Shows the message that the account was created.
-        /// </summary>
-        /// <returns>The confirmation view, or the form if no account was just created.</returns>
-        [HttpGet]
-        public IActionResult RegisterConfirmation()
-        {
-            if (TempData["RegisteredEmail"] is not string email)
-            {
-                return RedirectToAction(nameof(Register));
-            }
+namespace JaTak.App.Controllers;
 
-            ViewData["Email"] = email;
-            return View();
-        }
+public class AccountController : Controller
+{
+    // Redirects the user to Keycloak for login.
+    [HttpGet]
+    public IActionResult Login()
+    {
+        return Challenge(
+            new AuthenticationProperties
+            {
+                RedirectUri = "/"
+            },
+            "OpenIdConnect");
+    }
+
+    // Logs the user out of JaTak and Keycloak.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Logout()
+    {
+        return SignOut(
+            new AuthenticationProperties
+            {
+                RedirectUri = "/"
+            },
+            "Cookies",
+            "OpenIdConnect");
     }
 }

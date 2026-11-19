@@ -1,31 +1,50 @@
 ﻿using JaTak.App.Models;
+using JaTak.App.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
 
 namespace JaTak.App.Controllers
 {
-    /// <summary>
-    /// Handles displaying offers in the MVC application.
-    /// </summary>
     public class OffersController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly UserApiService _userApiService;
+        private readonly ILogger<OffersController> _logger;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OffersController"/> class.
-        /// </summary>
-        /// <param name="httpClientFactory">Factory used to create HTTP clients.</param>
-        public OffersController(IHttpClientFactory httpClientFactory)
+        public OffersController(
+            IHttpClientFactory httpClientFactory,
+            UserApiService userApiService,
+            ILogger<OffersController> logger)
         {
             _httpClientFactory = httpClientFactory;
+            _userApiService = userApiService;
+            _logger = logger;
         }
 
-        /// <summary>
-        /// Retrieves active offers from the Web API and displays them.
-        /// </summary>
-        /// <returns>The offers view containing the retrieved offers.</returns>
         public async Task<IActionResult> Index()
         {
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                try
+                {
+                    var user = await _userApiService.GetCurrentUserAsync();
+
+                    _logger.LogInformation(
+                        "User synchronization successful. UserId: {UserId}",
+                        user?.UserId);
+                }
+                catch (HttpRequestException ex)
+                {
+                    _logger.LogError(ex,
+                        "User synchronization failed.");
+                }
+                catch (TaskCanceledException ex)
+                {
+                    _logger.LogError(ex,
+                        "User synchronization request was cancelled.");
+                }
+            }
+
             var client = _httpClientFactory.CreateClient("JaTakApi");
 
             var offers = await client.GetFromJsonAsync<List<OfferViewModel>>(
