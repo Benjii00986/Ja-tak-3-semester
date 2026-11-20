@@ -213,3 +213,16 @@ body {
     margin-bottom: 18px;
     overflow-wrap: break-word;
 }
+
+/* Header */
+
+.jatak-header {
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.jatak-brand {
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
