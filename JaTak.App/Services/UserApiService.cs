@@ -1,5 +1,8 @@
 ﻿using System.Net.Http.Json;
 
+// Forfatter: Andreas Larsen, Benyamin Mannan, Magnus Mortensen, Said Hamidi.
+// Dato: 20-11-2026
+
 namespace JaTak.App.Services;
 
 /// <summary>
