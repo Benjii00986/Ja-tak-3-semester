@@ -1,6 +1,9 @@
 ﻿using JaTak.DataAccess.Models;
 using JaTak.DataAccess.Repositories;
 
+// Forfatter: Andreas Larsen, Benyamin Mannan, Magnus Mortensen, Said Hamidi.
+// Dato: 20-11-2026
+
 namespace JaTak.BusinessLogic.Services
 {
     /// <summary>

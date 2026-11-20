@@ -1,4 +1,7 @@
-﻿namespace JaTak.DataAccess.Models
+﻿// Forfatter: Andreas Larsen, Benyamin Mannan, Magnus Mortensen, Said Hamidi.
+// Dato: 20-11-2026
+
+namespace JaTak.DataAccess.Models
 {
     /// <summary>
     /// Represents a Ja Tak offer containing product information,

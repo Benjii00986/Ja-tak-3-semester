@@ -1,4 +1,7 @@
-﻿namespace JaTak.WebApi.DTOs
+﻿// Forfatter: Andreas Larsen, Benyamin Mannan, Magnus Mortensen, Said Hamidi.
+// Dato: 20-11-2026
+
+namespace JaTak.WebApi.DTOs
 {
     /// <summary>
     /// Represents the offer data transferred from the API to the client.

@@ -2,6 +2,9 @@
 using JaTak.WebApi.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
+// Forfatter: Andreas Larsen, Benyamin Mannan, Magnus Mortensen, Said Hamidi.
+// Dato: 20-11-2026
+
 namespace JaTak.WebApi.Controllers
 {
 

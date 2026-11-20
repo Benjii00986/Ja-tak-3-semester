@@ -3,6 +3,9 @@ using JaTak.DataAccess.Models;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
+// Forfatter: Andreas Larsen, Benyamin Mannan, Magnus Mortensen, Said Hamidi.
+// Dato: 20-11-2026
+
 namespace JaTak.DataAccess.Repositories
 {
     /// <summary>

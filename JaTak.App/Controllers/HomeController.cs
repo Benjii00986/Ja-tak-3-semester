@@ -2,6 +2,9 @@ using JaTak.App.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
+// Forfatter: Andreas Larsen, Benyamin Mannan, Magnus Mortensen, Said Hamidi.
+// Dato: 20-11-2026
+
 namespace JaTak.App.Controllers
 {
     /// <summary>
