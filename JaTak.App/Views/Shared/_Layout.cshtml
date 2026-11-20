@@ -31,13 +31,13 @@
                                 @(User.FindFirst("email")?.Value ?? User.Identity.Name)
                             </span>
                             <form asp-controller="Account" asp-action="Logout" method="post" class="m-0">
-                                <button type="submit" class="btn btn-outline-dark rounded-pill px-4">Log ud</button>
+                                <button type="submit" class="btn btn-jatak rounded-pill px-4">Log ud</button>
                             </form>
                         }
                         else
                         {
-                            <a class="btn btn-outline-dark rounded-pill px-4" asp-controller="Account" asp-action="Login">Log ind</a>
-                            <a class="btn btn-dark rounded-pill px-4" asp-controller="Account" asp-action="Register">Opret konto</a>
+                            <a class="btn btn-jatak rounded-pill px-4" asp-controller="Account" asp-action="Login">Log ind</a>
+                            <a class="btn btn-jatak rounded-pill px-4" asp-controller="Account" asp-action="Register">Opret konto</a>
                         }
                     </div>
                 </div>

@@ -226,3 +226,17 @@ body {
     font-weight: 700;
     letter-spacing: -0.5px;
 }
+
+/* JaTak buttons */
+
+.btn-jatak {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #015a3e;
+    --bs-btn-border-color: #015a3e;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #01452f;
+    --bs-btn-hover-border-color: #01452f;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #01452f;
+    --bs-btn-active-border-color: #01452f;
+}
