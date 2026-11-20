@@ -16,6 +16,7 @@
 
 .login-pf-page {
   min-height: 100vh;
+  padding-bottom: 40px;
 }
 
 #login-content-wrapper {
@@ -53,7 +54,7 @@
   font-weight: 300;
   font-size: 16px;
   color: #888888;
-  background: #ffffff;
+  background-color: #ffffff;
   border: 1px solid rgba(51, 51, 51, 0.2);
   border-radius: 4px;
   height: 57px;
@@ -607,7 +608,8 @@ li {
   background: transparent;
 }
 
-#password {
+#password,
+#password-confirm {
   padding-right: 48px;
 }
 
@@ -622,6 +624,23 @@ li {
   width: 100%;
   padding: 0;
   text-align: center;
+}
+
+.pf-c-input-group .pf-c-form-control[aria-invalid="true"] {
+  background-position: right 48px center;
+}
+
+.pf-c-input-group .pf-c-form-control[aria-invalid="true"] {
+  background-position: right 48px center;
+}
+
+#password[aria-invalid="true"],
+#password-confirm[aria-invalid="true"] {
+  padding-right: 80px;
+}
+
+.pf-c-form-control[aria-invalid="true"] {
+  border-color: #c9190b;
 }
 
 /* END Update-password */
