@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JaTak.App.Controllers;
@@ -13,6 +14,22 @@ public class AccountController : Controller
             new AuthenticationProperties
             {
                 RedirectUri = "/"
+            },
+            "OpenIdConnect");
+    }
+
+    /// <summary>
+    /// Redirects the user directly to the Keycloak registration page.
+    /// </summary>
+    /// <returns>A redirect to Keycloak's create account page.</returns>
+    [HttpGet]
+    public IActionResult Register()
+    {
+        return Challenge(
+            new OpenIdConnectChallengeProperties
+            {
+                RedirectUri = "/",
+                Prompt = "create"
             },
             "OpenIdConnect");
     }
