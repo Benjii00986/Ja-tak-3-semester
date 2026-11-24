@@ -252,6 +252,12 @@ body {
     border-radius: 12px;
 }
 
+    /* Always shows the arrows in the quantity input, not only on hover. */
+    .jatak-quantity-input::-webkit-inner-spin-button,
+    .jatak-quantity-input::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+
 /* Header */
 
 .jatak-header {
