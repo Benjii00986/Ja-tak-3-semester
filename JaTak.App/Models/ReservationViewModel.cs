@@ -1,6 +1,6 @@
 ﻿namespace JaTak.App.Models
 {
-    public class Reservation
+    public class ReservationViewModel
     {
     }
 }
