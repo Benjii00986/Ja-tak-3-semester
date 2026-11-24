@@ -1,5 +1,5 @@
 ﻿using JaTak.DataAccess.Models;
-using JaTak.DataAccess.Repositories;
+using JaTak.DataAccess.Repositories.Interfaces;
 
 // Forfatter: Andreas Larsen, Benyamin Mannan, Magnus Mortensen, Said Hamidi.
 // Dato: 20-11-2026
@@ -11,12 +11,12 @@ namespace JaTak.BusinessLogic.Services
     /// </summary>
     public class JaTakUserService
     {
-        private readonly JaTakUserRepository _userRepository;
+        private readonly IJaTakUserRepository _userRepository;
 
         /// <summary>
         /// Initializes a new instance of the JaTakUserService class.
         /// </summary>
-        public JaTakUserService(JaTakUserRepository userRepository)
+        public JaTakUserService(IJaTakUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

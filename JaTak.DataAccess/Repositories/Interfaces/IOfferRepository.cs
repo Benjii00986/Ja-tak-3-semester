@@ -7,10 +7,8 @@ namespace JaTak.DataAccess.Repositories.Interfaces
     /// </summary>
     public interface IOfferRepository
     {
-        /// <summary>
-        /// Retrieves an offer by its ID.
-        /// Returns null if the offer does not exist.
-        /// </summary>
+        Task<List<Offer>> GetActiveOffersAsync();
+
         Task<Offer?> GetOfferByIdAsync(int offerId);
     }
 }

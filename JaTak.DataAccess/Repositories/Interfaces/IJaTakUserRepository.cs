@@ -7,10 +7,12 @@ namespace JaTak.DataAccess.Repositories.Interfaces
     /// </summary>
     public interface IJaTakUserRepository
     {
-        /// <summary>
-        /// Retrieves a user by their Keycloak ID.
-        /// Returns null if the user does not exist.
-        /// </summary>
         Task<JaTakUser?> GetByKeycloakIdAsync(string keycloakId);
+
+        Task<JaTakUser?> GetByEmailAsync(string email);
+
+        Task<int> CreateAsync(JaTakUser user);
+
+        Task UpdateAsync(JaTakUser user);
     }
 }

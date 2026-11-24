@@ -1,5 +1,5 @@
 ﻿using JaTak.DataAccess.Models;
-using JaTak.DataAccess.Repositories;
+using JaTak.DataAccess.Repositories.Interfaces;
 
 // Forfatter: Andreas Larsen, Benyamin Mannan, Magnus Mortensen, Said Hamidi.
 // Dato: 20-11-2026
@@ -12,7 +12,7 @@ namespace JaTak.BusinessLogic.Services
     /// </summary>
     public class OfferService
     {
-        private readonly OfferRepository _offerRepository;
+        private readonly IOfferRepository _offerRepository;
 
         /// <summary>
         /// Initializes a new instance of the OfferService class.
@@ -20,7 +20,7 @@ namespace JaTak.BusinessLogic.Services
         /// <param name="offerRepository">
         /// The repository responsible for accessing offer data.
         /// </param>
-        public OfferService(OfferRepository offerRepository)
+        public OfferService(IOfferRepository offerRepository)
         {
             _offerRepository = offerRepository;
         }
