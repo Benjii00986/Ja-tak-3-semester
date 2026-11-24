@@ -150,6 +150,7 @@
                               class="jatak-reservation-form"
                               data-product-name="@offer.ProductName"
                               data-price="@offer.Price.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                              data-logged-in="@(User.Identity?.IsAuthenticated == true ? "true" : "false")"
                               style="display: contents;">
 
                             @Html.AntiForgeryToken()
