@@ -29,6 +29,12 @@ builder.Services.AddScoped<OfferService>();
 // Registers the JaTak user service with scoped lifetime.
 builder.Services.AddScoped<JaTakUserService>();
 
+// Registers the reservation repository with scoped lifetime.
+builder.Services.AddScoped<ReservationRepository>();
+
+// Registers the reservation service with scoped lifetime.
+builder.Services.AddScoped<ReservationService>();
+
 // Registers services for API documentation and Swagger.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
