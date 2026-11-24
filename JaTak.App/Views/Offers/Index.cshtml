@@ -147,6 +147,9 @@
                         <form asp-controller="Offers"
                               asp-action="CreateReservation"
                               method="post"
+                              class="jatak-reservation-form"
+                              data-product-name="@offer.ProductName"
+                              data-price="@offer.Price.ToString(System.Globalization.CultureInfo.InvariantCulture)"
                               style="display: contents;">
 
                             @Html.AntiForgeryToken()
@@ -199,6 +202,64 @@
 
     </div>
 }
+
+<!-- Asks the customer to confirm the reservation before it is sent. -->
+<div class="modal fade"
+     id="reservationConfirmModal"
+     tabindex="-1"
+     aria-labelledby="reservationConfirmTitle"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="reservationConfirmTitle">
+                    Bekræft reservation
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Luk">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p>Vil du gennemføre denne reservation?</p>
+
+                <p class="mb-1">Produkt: <strong id="confirm-product-name"></strong></p>
+                <p class="mb-1">Antal: <strong id="confirm-quantity"></strong></p>
+                <p class="mb-1">Pris pr. stk.: <strong id="confirm-price"></strong></p>
+                <p class="mb-0">Pris i alt: <strong id="confirm-total-price"></strong></p>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button"
+                        class="btn btn-outline-secondary rounded-pill px-4"
+                        id="confirm-cancel-button">
+                    Annuller
+                </button>
+
+                <button type="button"
+                        class="btn btn-jatak rounded-pill px-4"
+                        id="confirm-reservation-button">
+                    Ja, reserver
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 <!-- Reservation confirmation popup. -->
 @if (TempData["SuccessMessage"] != null)
