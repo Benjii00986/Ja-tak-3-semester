@@ -1,6 +1,6 @@
 ﻿using JaTak.App.Models;
 using JaTak.App.Services;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Net.Http.Json;
@@ -72,17 +72,25 @@ namespace JaTak.App.Controllers
 
         /// <summary>
         /// Creates a reservation for the authenticated user.
+        /// Displays a login-required message if the user is not authenticated.
         /// </summary>
         /// <param name="offerId">The ID of the offer to reserve.</param>
         /// <param name="quantity">The number of items to reserve.</param>
         /// <returns>A success or error message.</returns>
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateReservation(
             int offerId,
             int quantity)
         {
+            if (User.Identity?.IsAuthenticated != true)
+            {
+                TempData["LoginRequiredMessage"] =
+                    "Du skal være logget ind, før du kan reservere Ja Tak-tilbud.";
+
+                return RedirectToAction(nameof(Index));
+            }
+
             if (quantity <= 0)
             {
                 TempData["ErrorMessage"] = "Antal skal være mindst 1.";
@@ -136,6 +144,22 @@ namespace JaTak.App.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        /// <summary>
+        /// Starts the Keycloak login process.
+        /// Redirects the user back to the offers overview after login.
+        /// </summary>
+        /// <returns>A challenge to the OpenID Connect provider.</returns>
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return Challenge(
+                new AuthenticationProperties
+                {
+                    RedirectUri = Url.Action(nameof(Index), "Offers")
+                },
+                "OpenIdConnect");
         }
 
         /// <summary>

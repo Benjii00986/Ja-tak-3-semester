@@ -256,17 +256,78 @@
     </div>
 }
 
-<!-- Automatically opens the confirmation popup after a successful reservation. -->
-@if (TempData["SuccessMessage"] != null)
+<!-- Login required popup. -->
+@if (TempData["LoginRequiredMessage"] != null)
 {
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var successModal = document.getElementById("reservationSuccessModal");
+    <div class="modal fade"
+         id="loginRequiredModal"
+         tabindex="-1"
+         aria-labelledby="loginRequiredTitle"
+         aria-hidden="true">
 
-            if (successModal) {
-                var modal = new bootstrap.Modal(successModal);
-                modal.show();
-            }
-        });
-    </script>
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="loginRequiredTitle">
+                        Login påkrævet
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Luk">
+                    </button>
+
+                </div>
+
+                <div class="modal-body text-center">
+                    <p>@TempData["LoginRequiredMessage"]</p>
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Luk
+                    </button>
+
+                    <a asp-controller="Offers"
+                       asp-action="Login"
+                       class="btn btn-success">
+                        Log ind
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 }
+
+<!-- Automatically opens the confirmation popup after a successful reservation. -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        var successModal = document.getElementById("reservationSuccessModal");
+
+        if (successModal) {
+            var modal = new bootstrap.Modal(successModal);
+            modal.show();
+        }
+
+        var loginRequiredModal = document.getElementById("loginRequiredModal");
+
+        if (loginRequiredModal) {
+            var modal = new bootstrap.Modal(loginRequiredModal);
+            modal.show();
+        }
+
+    });
+</script>
+
