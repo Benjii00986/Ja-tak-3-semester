@@ -7,17 +7,11 @@ namespace JaTak.BusinessLogic.Services
     public class ReservationService
     {
         private readonly ReservationRepository _reservationRepository;
-        private readonly OfferRepository _offerRepository;
-        private readonly JaTakUserRepository _userRepository;
 
         public ReservationService(
-            ReservationRepository reservationRepository,
-            OfferRepository offerRepository,
-            JaTakUserRepository userRepository)
+            ReservationRepository reservationRepository)
         {
             _reservationRepository = reservationRepository;
-            _offerRepository = offerRepository;
-            _userRepository = userRepository;
         }
            
         public async Task<Reservation> CreateReservationAsync(
@@ -37,47 +31,33 @@ namespace JaTak.BusinessLogic.Services
                     "Antal skal være mindst 1.", nameof(quantity));
             }
 
-            JaTakUser? user = 
-                await _userRepository.GetByKeycloakIdAsync(keycloakId);
 
-            if (user == null)
+            var (status, reservationId) =
+    await _reservationRepository.CreateReservationAsync(
+        keycloakId, offerId, quantity);
+
+            switch (status)
             {
-                throw new InvalidOperationException(
-                    "Brugerprofilen blev ikke fundet.");
-            }
+                case "UserNotFound":
+                    throw new InvalidOperationException(
+                        "Brugerprofilen blev ikke fundet.");
 
-            Offer? offer = await _offerRepository.GetOfferByIdAsync(offerId);
+                case "OfferNotFound":
+                    throw new InvalidOperationException(
+                        "Tilbuddet findes ikke eller er ikke længere aktivt.");
 
-            if (offer == null || !offer.IsActive)
-            {
-                throw new InvalidOperationException(
-                    "Tilbuddet findes ikke eller er ikke længere aktivt.");
-            }
-
-            if (quantity > offer.QuantityLeft)
-            {
-                throw new InvalidOperationException(
-                    $"Der er kun {offer.QuantityLeft} stk. tilbage.");
+                case "InsufficientQuantity":
+                    throw new InvalidOperationException(
+                        "Der er ikke nok varer tilbage.");
             }
 
             Reservation reservation = new Reservation
             {
-                UserId = user.UserId,
+                ReservationId = reservationId!.Value,
                 OfferId = offerId,
-                Quantity = quantity
+                Quantity = quantity,
+                ReservedAt = DateTime.Now
             };
-
-            int? reservationId =
-                await _reservationRepository.CreateReservationAsync(reservation);
-
-            if (reservationId == null)
-            {
-                throw new InvalidOperationException(
-                    "Der er ikke længere nok varer tilbage.");
-            }
-
-            reservation.ReservationId = reservationId.Value;
-            reservation.ReservedAt = DateTime.UtcNow;
 
             return reservation; 
         }
