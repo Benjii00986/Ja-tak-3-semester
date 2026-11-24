@@ -287,3 +287,10 @@ body {
     --bs-btn-active-bg: #01452f;
     --bs-btn-active-border-color: #01452f;
 }
+
+/* Checkmark in the reservation confirmation popup */
+
+.jatak-success-icon {
+    font-size: 50px;
+    color: #015a3e;
+}
