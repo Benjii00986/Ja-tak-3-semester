@@ -1,4 +1,5 @@
 ﻿using JaTak.DataAccess.Connections;
+using JaTak.DataAccess.Models;
 using Microsoft.Data.SqlClient;
 
 // Forfatter: Andreas Larsen, Benyamin Mannan, Magnus Mortensen, Said Hamidi.
@@ -28,8 +29,13 @@ namespace JaTak.DataAccess.Repositories
         /// Creates a reservation and updates the available offer quantity.
         /// Both operations are performed within a SQL transaction.
         /// </summary>
-        public async Task<(string Status, int? ReservationId)> CreateReservationAsync(
-            string keycloakId, int offerId, int quantity)
+        /// <param name="reservation">
+        /// The reservation containing the user, offer and requested quantity.
+        /// </param>
+        /// <returns>
+        /// The generated reservation ID if successful; otherwise, null.
+        /// </returns>
+        public async Task<int?> CreateReservationAsync(Reservation reservation)
         {
             using SqlConnection connection =
                 _connectionFactory.CreateConnection();
@@ -41,50 +47,6 @@ namespace JaTak.DataAccess.Repositories
 
             try
             {
-                // Find the user using their Keycloak ID.
-                string userQuery = """
-                    SELECT UserId
-                    FROM JaTakUsers
-                    WHERE KeycloakId = @KeycloakId
-                    """;
-
-                using SqlCommand userCommand =
-                    new SqlCommand(userQuery, connection, transaction);
-
-                userCommand.Parameters.AddWithValue("@KeycloakId", keycloakId);
-
-                object? userResult = await userCommand.ExecuteScalarAsync();
-
-                if (userResult == null)
-                {
-                    await transaction.RollbackAsync();
-                    return ("UserNotFound", null);
-                }
-
-                int userId = Convert.ToInt32(userResult);
-
-                // Check whether the offer exists and is active.
-                string offerQuery = """
-                    SELECT COUNT(*)
-                    FROM JaTakOffers
-                    WHERE OfferId = @OfferId
-                    AND IsActive = 1
-                    """;
-
-                using SqlCommand offerCommand =
-                    new SqlCommand(offerQuery, connection, transaction);
-
-                offerCommand.Parameters.AddWithValue("@OfferId", offerId);
-
-                int offerExists = Convert.ToInt32(
-                    await offerCommand.ExecuteScalarAsync());
-
-                if (offerExists == 0)
-                {
-                    await transaction.RollbackAsync();
-                    return ("OfferNotFound", null);
-                }
-
                 // Decrease available quantity if enough products remain.
                 string updateQuery = """
                     UPDATE JaTakOffers
@@ -97,39 +59,47 @@ namespace JaTak.DataAccess.Repositories
                 using SqlCommand updateCommand =
                     new SqlCommand(updateQuery, connection, transaction);
 
-                updateCommand.Parameters.AddWithValue("@Quantity", quantity);
-                updateCommand.Parameters.AddWithValue("@OfferId", offerId);
+                updateCommand.Parameters.AddWithValue(
+                    "@Quantity", reservation.Quantity);
+
+                updateCommand.Parameters.AddWithValue(
+                    "@OfferId", reservation.OfferId);
 
                 int rowsAffected = await updateCommand.ExecuteNonQueryAsync();
 
                 if (rowsAffected == 0)
                 {
                     await transaction.RollbackAsync();
-                    return ("InsufficientQuantity", null);
+                    return null;
                 }
 
-                // Insert the reservation.
+                // Insert the reservation and retrieve its generated ID.
                 string insertQuery = """
                     INSERT INTO JaTakReservations
                     (UserId, OfferId, Quantity, ReservedAt)
                     OUTPUT INSERTED.ReservationId
                     VALUES
-                    (@UserId, @OfferId, @Quantity, GETDATE())
+                    (@UserId, @OfferId, @Quantity, SYSUTCDATETIME())
                     """;
 
                 using SqlCommand insertCommand =
                     new SqlCommand(insertQuery, connection, transaction);
 
-                insertCommand.Parameters.AddWithValue("@UserId", userId);
-                insertCommand.Parameters.AddWithValue("@OfferId", offerId);
-                insertCommand.Parameters.AddWithValue("@Quantity", quantity);
+                insertCommand.Parameters.AddWithValue(
+                    "@UserId", reservation.UserId);
+
+                insertCommand.Parameters.AddWithValue(
+                    "@OfferId", reservation.OfferId);
+
+                insertCommand.Parameters.AddWithValue(
+                    "@Quantity", reservation.Quantity);
 
                 int reservationId = Convert.ToInt32(
                     await insertCommand.ExecuteScalarAsync());
 
                 await transaction.CommitAsync();
 
-                return ("Success", reservationId);
+                return reservationId;
             }
             catch
             {
