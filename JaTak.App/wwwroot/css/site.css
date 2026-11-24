@@ -256,6 +256,7 @@ body {
     .jatak-quantity-input::-webkit-inner-spin-button,
     .jatak-quantity-input::-webkit-outer-spin-button {
         opacity: 1;
+        cursor: pointer;
     }
 
 /* Header */
