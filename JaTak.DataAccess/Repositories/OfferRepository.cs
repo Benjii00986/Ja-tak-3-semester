@@ -1,6 +1,8 @@
 ﻿using JaTak.DataAccess.Connections;
 using JaTak.DataAccess.Models;
+using JaTak.DataAccess.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
+
 
 // Forfatter: Andreas Larsen, Benyamin Mannan, Magnus Mortensen, Said Hamidi.
 // Dato: 20-11-2026
@@ -11,7 +13,7 @@ namespace JaTak.DataAccess.Repositories
     /// Handles database operations related to offers.
     /// Retrieves offer data from the JaTakOffers table.
     /// </summary>
-    public class OfferRepository
+    public class OfferRepository : IOfferRepository
     {
         private readonly SqlConnectionFactory _connectionFactory;
 

@@ -1,5 +1,5 @@
 ﻿using JaTak.DataAccess.Models;
-using JaTak.DataAccess.Repositories;
+using JaTak.DataAccess.Repositories.Interfaces;
 
 namespace JaTak.BusinessLogic.Services
 {
@@ -9,9 +9,9 @@ namespace JaTak.BusinessLogic.Services
     /// </summary>
     public class ReservationService
     {
-        private readonly ReservationRepository _reservationRepository;
-        private readonly OfferRepository _offerRepository;
-        private readonly JaTakUserRepository _userRepository;
+        private readonly IReservationRepository _reservationRepository;
+        private readonly IOfferRepository _offerRepository;
+        private readonly IJaTakUserRepository _userRepository;
 
         /// <summary>
         /// Initializes a new instance of the ReservationService class.
@@ -26,9 +26,9 @@ namespace JaTak.BusinessLogic.Services
         /// Repository responsible for retrieving user data.
         /// </param>
         public ReservationService(
-            ReservationRepository reservationRepository,
-            OfferRepository offerRepository,
-            JaTakUserRepository userRepository)
+            IReservationRepository reservationRepository,
+            IOfferRepository offerRepository,
+            IJaTakUserRepository userRepository)
         {
             _reservationRepository = reservationRepository;
             _offerRepository = offerRepository;

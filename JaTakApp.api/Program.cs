@@ -1,5 +1,6 @@
 using JaTak.DataAccess.Connections;
 using JaTak.DataAccess.Repositories;
+using JaTak.DataAccess.Repositories.Interfaces;
 using JaTak.BusinessLogic.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -17,22 +18,14 @@ var connectionString = builder.Configuration
 builder.Services.AddSingleton(
     new SqlConnectionFactory(connectionString));
 
-// Registers the repository with scoped lifetime.
-builder.Services.AddScoped<OfferRepository>();
+// Registers repositories with scoped lifetimes.
+builder.Services.AddScoped<IOfferRepository, OfferRepository>();
+builder.Services.AddScoped<IJaTakUserRepository, JaTakUserRepository>();
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 
-// Registers the JaTak user repository with scoped lifetime.
-builder.Services.AddScoped<JaTakUserRepository>();
-
-// Registers the offer service with scoped lifetime.
+// Registers services with scoped lifetimes.
 builder.Services.AddScoped<OfferService>();
-
-// Registers the JaTak user service with scoped lifetime.
 builder.Services.AddScoped<JaTakUserService>();
-
-// Registers the reservation repository with scoped lifetime.
-builder.Services.AddScoped<ReservationRepository>();
-
-// Registers the reservation service with scoped lifetime.
 builder.Services.AddScoped<ReservationService>();
 
 // Registers services for API documentation and Swagger.
@@ -70,7 +63,7 @@ builder.Services.AddAuthorization();
 // Registers controllers for handling HTTP requests.
 builder.Services.AddControllers();
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// Registers OpenAPI documentation.
 builder.Services.AddOpenApi();
 
 // Builds the application.
@@ -81,11 +74,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
     app.MapOpenApi();
 }
 

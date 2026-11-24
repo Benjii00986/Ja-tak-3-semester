@@ -5,6 +5,7 @@
   </Folder>
   <Project Path="../JaTak.BusinessLogic/JaTak.BusinessLogic.csproj" Id="5d60633b-74a9-41af-9538-30859a799965" />
   <Project Path="../JaTak.DataAccess/JaTak.DataAccess.csproj" Id="62f081bf-cdac-48ca-bd6c-67caf2cb5cb4" />
+  <Project Path="../JaTak.Tests/JaTak.Tests.csproj" Id="4a604431-de74-4409-8afe-12885c476603" />
   <Project Path="../JaTakApp.api/JaTak.WebApi.csproj" />
   <Project Path="JaTak.App.csproj" />
 </Solution>

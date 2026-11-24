@@ -1,5 +1,6 @@
 ﻿using JaTak.DataAccess.Connections;
 using JaTak.DataAccess.Models;
+using JaTak.DataAccess.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -11,7 +12,7 @@ namespace JaTak.DataAccess.Repositories
     /// <summary>
     /// Handles database operations related to JaTak users.
     /// </summary>
-    public class JaTakUserRepository
+    public class JaTakUserRepository : IJaTakUserRepository
     {
         private readonly SqlConnectionFactory _connectionFactory;
 

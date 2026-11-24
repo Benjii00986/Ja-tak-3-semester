@@ -1,5 +1,6 @@
 ﻿using JaTak.DataAccess.Connections;
 using JaTak.DataAccess.Models;
+using JaTak.DataAccess.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 
 // Forfatter: Andreas Larsen, Benyamin Mannan, Magnus Mortensen, Said Hamidi.
@@ -10,7 +11,7 @@ namespace JaTak.DataAccess.Repositories
     /// <summary>
     /// Handles database operations related to reservations.
     /// </summary>
-    public class ReservationRepository
+    public class ReservationRepository : IReservationRepository
     {
         private readonly SqlConnectionFactory _connectionFactory;
 
