@@ -16,15 +16,6 @@ namespace JaTak.BusinessLogic.Services
         /// <summary>
         /// Initializes a new instance of the ReservationService class.
         /// </summary>
-        /// <param name="reservationRepository">
-        /// Repository responsible for saving reservation data.
-        /// </param>
-        /// <param name="offerRepository">
-        /// Repository responsible for retrieving offer data.
-        /// </param>
-        /// <param name="userRepository">
-        /// Repository responsible for retrieving user data.
-        /// </param>
         public ReservationService(
             IReservationRepository reservationRepository,
             IOfferRepository offerRepository,
@@ -37,28 +28,7 @@ namespace JaTak.BusinessLogic.Services
 
         /// <summary>
         /// Creates a reservation for an authenticated user.
-        /// Validates the user, offer and requested quantity before saving
-        /// the reservation to the database.
         /// </summary>
-        /// <param name="keycloakId">
-        /// The Keycloak ID of the authenticated user.
-        /// </param>
-        /// <param name="offerId">
-        /// The unique ID of the offer being reserved.
-        /// </param>
-        /// <param name="quantity">
-        /// The number of products the user wants to reserve.
-        /// </param>
-        /// <returns>
-        /// The created reservation, including its generated ID and reservation date.
-        /// </returns>
-        /// <exception cref="ArgumentException">
-        /// Thrown when the Keycloak ID is empty or the requested quantity is invalid.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Thrown when the user or offer cannot be found, the offer is inactive,
-        /// or there is insufficient available quantity.
-        /// </exception>
         public async Task<Reservation> CreateReservationAsync(
             string keycloakId,
             int offerId,
