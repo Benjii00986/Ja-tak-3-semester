@@ -214,6 +214,20 @@ body {
     overflow-wrap: break-word;
 }
 
+/* Offer details footer with the Ja Tak button */
+
+.offer-details-footer {
+    border-top: none;
+    justify-content: center;
+    gap: 12px;
+    padding-bottom: 24px;
+}
+
+.jatak-reserve-button {
+    font-size: 20px;
+    font-weight: 600;
+}
+
 /* Header */
 
 .jatak-header {

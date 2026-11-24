@@ -126,6 +126,30 @@
 
                 </div>
 
+                
+                <!-- Reservation area containing the Ja Tak button. -->
+                <div class="modal-footer offer-details-footer">
+
+                    @if (offer.QuantityLeft > 0)
+                    {
+                        <!-- Quantity selection (#147) will be placed next to this button. -->
+                        <button type="button"
+                                class="btn btn-jatak rounded-pill px-5 jatak-reserve-button"
+                                data-offer-id="@offer.OfferId">
+                            Ja Tak!
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="button"
+                                class="btn btn-secondary rounded-pill px-5 jatak-reserve-button"
+                                disabled>
+                            Udsolgt
+                        </button>
+                    }
+
+                </div>
+
             </div>
 
         </div>
