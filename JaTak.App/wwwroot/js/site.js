@@ -25,6 +25,12 @@ if (confirmModalElement) {
 
     document.querySelectorAll(".jatak-reservation-form").forEach(function (form) {
         form.addEventListener("submit", function (event) {
+
+            // Lets the server show the login popup if the user is not logged in.
+            if (form.dataset.loggedIn !== "true") {
+                return;
+            }
+
             // Stops the form from being sent right away.
             event.preventDefault();
 
