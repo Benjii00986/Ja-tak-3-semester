@@ -218,14 +218,29 @@ body {
 
 .offer-details-footer {
     border-top: none;
-    justify-content: center;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
     padding-bottom: 24px;
 }
 
+.jatak-quantity-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-self: start;
+}
+
 .jatak-reserve-button {
+    grid-column: 2;
     font-size: 20px;
     font-weight: 600;
+}
+
+.jatak-quantity-label {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 0;
 }
 
 .jatak-quantity-input {

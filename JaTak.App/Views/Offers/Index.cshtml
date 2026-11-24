@@ -132,22 +132,9 @@
 
                     @if (offer.QuantityLeft > 0)
                     {
-                        
-                        <button type="button"
-                                class="btn btn-jatak rounded-pill px-5 jatak-reserve-button"
-                                data-offer-id="@offer.OfferId">
-                            Ja Tak!
-                        </button>
-                        @if (offer.QuantityLeft > 0)
-                        {
-                            <button type="button"
-                                    class="btn btn-jatak rounded-pill px-5 jatak-reserve-button"
-                                    data-offer-id="@offer.OfferId">
-                                Ja Tak!
-                            </button>
-
-                            <!-- Lets the user choose how many items to reserve. -->
-                            <label for="quantity-@offer.OfferId" class="visually-hidden">Antal</label>
+                        <!-- Lets the user choose how many items to reserve. -->
+                        <div class="jatak-quantity-row">
+                            <label for="quantity-@offer.OfferId" class="jatak-quantity-label">Antal</label>
                             <input type="number"
                                    id="quantity-@offer.OfferId"
                                    name="quantity"
@@ -156,7 +143,13 @@
                                    min="1"
                                    max="@offer.QuantityLeft"
                                    data-offer-id="@offer.OfferId" />
-                        }
+                        </div>
+
+                        <button type="button"
+                                class="btn btn-jatak rounded-pill px-5 jatak-reserve-button"
+                                data-offer-id="@offer.OfferId">
+                            Ja Tak!
+                        </button>
                     }
                     else
                     {
