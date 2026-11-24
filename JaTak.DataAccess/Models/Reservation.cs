@@ -10,11 +10,11 @@ namespace JaTak.DataAccess.Models
 {
     public class Reservation
     {
-        public int ReservationId { get; set; }
-        public int UserId { get; set; }
-        public int OfferId { get; set; }
-        public int Quantity { get; set; }
-        public DateTime ReservedAt { get; set; }
+        public int reservationId { get; set; }
+        public int userId { get; set; }
+        public int offerId { get; set; }
+        public int quantity { get; set; }
+        public DateTime reservedAt { get; set; }
     }
 
 }
