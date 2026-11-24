@@ -132,12 +132,31 @@
 
                     @if (offer.QuantityLeft > 0)
                     {
-                        <!-- Quantity selection (#147) will be placed next to this button. -->
+                        
                         <button type="button"
                                 class="btn btn-jatak rounded-pill px-5 jatak-reserve-button"
                                 data-offer-id="@offer.OfferId">
                             Ja Tak!
                         </button>
+                        @if (offer.QuantityLeft > 0)
+                        {
+                            <button type="button"
+                                    class="btn btn-jatak rounded-pill px-5 jatak-reserve-button"
+                                    data-offer-id="@offer.OfferId">
+                                Ja Tak!
+                            </button>
+
+                            <!-- Lets the user choose how many items to reserve. -->
+                            <label for="quantity-@offer.OfferId" class="visually-hidden">Antal</label>
+                            <input type="number"
+                                   id="quantity-@offer.OfferId"
+                                   name="quantity"
+                                   class="form-control jatak-quantity-input"
+                                   value="1"
+                                   min="1"
+                                   max="@offer.QuantityLeft"
+                                   data-offer-id="@offer.OfferId" />
+                        }
                     }
                     else
                     {
