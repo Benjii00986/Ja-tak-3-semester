@@ -63,8 +63,8 @@ namespace JaTak.BusinessLogic.Services
             Reservation reservation = new Reservation
             {
                 UserId = user.UserId,
-                offerId = offerId,
-                quantity = quantity
+                OfferId = offerId,
+                Quantity = quantity
             };
 
             int? reservationId =
@@ -79,6 +79,7 @@ namespace JaTak.BusinessLogic.Services
             reservation.ReservationId = reservationId.Value;
             reservation.ReservedAt = DateTime.UtcNow;
 
+            return reservation; 
         }
     }
 }
