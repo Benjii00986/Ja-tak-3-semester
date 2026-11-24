@@ -8,6 +8,7 @@
 
 #kc-header-wrapper {
   color: #333333;
+  text-transform: none;
 }
 
 .login-pf-header {
