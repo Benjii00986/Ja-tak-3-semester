@@ -36,7 +36,11 @@ public class KeycloakTokenHandler : DelegatingHandler
         {
             var accessToken = await httpContext.GetTokenAsync("access_token");
 
-            if (!string.IsNullOrEmpty(accessToken))
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                Console.WriteLine("Warning: No Keycloak access token was found.");
+            }
+            else
             {
                 request.Headers.Authorization =
                     new AuthenticationHeaderValue("Bearer", accessToken);

@@ -8,6 +8,19 @@
 
     <h1 class="offers-title">Ja Tak tilbud</h1>
 
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Luk">
+            </button>
+        </div>
+    }
+
     <div class="offers-grid">
 
         @foreach (var offer in Model)
@@ -126,30 +139,48 @@
 
                 </div>
 
-                
                 <!-- Reservation area containing the Ja Tak button. -->
                 <div class="modal-footer offer-details-footer">
 
                     @if (offer.QuantityLeft > 0)
                     {
-                        <!-- Lets the user choose how many items to reserve. -->
-                        <div class="jatak-quantity-row">
-                            <label for="quantity-@offer.OfferId" class="jatak-quantity-label">Antal</label>
-                            <input type="number"
-                                   id="quantity-@offer.OfferId"
-                                   name="quantity"
-                                   class="form-control jatak-quantity-input"
-                                   value="1"
-                                   min="1"
-                                   max="@offer.QuantityLeft"
-                                   data-offer-id="@offer.OfferId" />
-                        </div>
+                        <form asp-controller="Offers"
+                              asp-action="CreateReservation"
+                              method="post"
+                              style="display: contents;">
 
-                        <button type="button"
-                                class="btn btn-jatak rounded-pill px-5 jatak-reserve-button"
-                                data-offer-id="@offer.OfferId">
-                            Ja Tak!
-                        </button>
+                            @Html.AntiForgeryToken()
+
+                            <input type="hidden"
+                                   name="offerId"
+                                   value="@offer.OfferId" />
+
+                            <!-- Lets the user choose how many items to reserve. -->
+                            <div class="jatak-quantity-row">
+
+                                <label for="quantity-@offer.OfferId"
+                                       class="jatak-quantity-label">
+                                    Antal
+                                </label>
+
+                                <input type="number"
+                                       id="quantity-@offer.OfferId"
+                                       name="quantity"
+                                       class="form-control jatak-quantity-input"
+                                       value="1"
+                                       min="1"
+                                       max="@offer.QuantityLeft"
+                                       data-offer-id="@offer.OfferId" />
+
+                            </div>
+
+                            <button type="submit"
+                                    class="btn btn-jatak rounded-pill px-5 jatak-reserve-button"
+                                    data-offer-id="@offer.OfferId">
+                                Ja Tak!
+                            </button>
+
+                        </form>
                     }
                     else
                     {
@@ -167,4 +198,75 @@
         </div>
 
     </div>
+}
+
+<!-- Reservation confirmation popup. -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="modal fade"
+         id="reservationSuccessModal"
+         tabindex="-1"
+         aria-labelledby="reservationSuccessTitle"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="reservationSuccessTitle">
+                        Reservation gennemført!
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Luk">
+                    </button>
+
+                </div>
+
+                <div class="modal-body text-center">
+
+                    <div class="mb-3">
+                        <span style="font-size: 50px; color: #198754;">
+                            ✓
+                        </span>
+                    </div>
+
+                    <p>@TempData["SuccessMessage"]</p>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-success"
+                            data-bs-dismiss="modal">
+                        Luk
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+}
+
+<!-- Automatically opens the confirmation popup after a successful reservation. -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var successModal = document.getElementById("reservationSuccessModal");
+
+            if (successModal) {
+                var modal = new bootstrap.Modal(successModal);
+                modal.show();
+            }
+        });
+    </script>
 }
