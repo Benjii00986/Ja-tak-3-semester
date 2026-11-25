@@ -150,8 +150,7 @@
                               class="jatak-reservation-form"
                               data-product-name="@offer.ProductName"
                               data-price="@offer.Price.ToString(System.Globalization.CultureInfo.InvariantCulture)"
-                              data-logged-in="@(User.Identity?.IsAuthenticated == true ? "true" : "false")"
-                              style="display: contents;">
+                              data-logged-in="@(User.Identity?.IsAuthenticated == true ? "true" : "false")">
 
                             @Html.AntiForgeryToken()
 
@@ -372,24 +371,5 @@
     </div>
 }
 
-<!-- Automatically opens the confirmation popup after a successful reservation. -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
 
-        var successModal = document.getElementById("reservationSuccessModal");
-
-        if (successModal) {
-            var modal = new bootstrap.Modal(successModal);
-            modal.show();
-        }
-
-        var loginRequiredModal = document.getElementById("loginRequiredModal");
-
-        if (loginRequiredModal) {
-            var modal = new bootstrap.Modal(loginRequiredModal);
-            modal.show();
-        }
-
-    });
-</script>
 

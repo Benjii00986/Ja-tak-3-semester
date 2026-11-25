@@ -77,3 +77,22 @@ function formatPrice(amount) {
         maximumFractionDigits: 2
     }) + " kr.";
 }
+
+// Automatically opens the success or login-required popup when the page loads.
+document.addEventListener("DOMContentLoaded", function () {
+
+    var successModal = document.getElementById("reservationSuccessModal");
+
+    if (successModal) {
+        var modal = new bootstrap.Modal(successModal);
+        modal.show();
+    }
+
+    var loginRequiredModal = document.getElementById("loginRequiredModal");
+
+    if (loginRequiredModal) {
+        var modal = new bootstrap.Modal(loginRequiredModal);
+        modal.show();
+    }
+
+});

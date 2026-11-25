@@ -225,6 +225,12 @@ body {
     user-select: none;
 }
 
+/* Reservation form */
+
+.jatak-reservation-form {
+    display: contents;
+}
+
 .jatak-quantity-row {
     display: flex;
     align-items: center;
@@ -293,4 +299,142 @@ body {
 .jatak-success-icon {
     font-size: 50px;
     color: #015a3e;
+}
+/* My reservations page */
+
+.my-reservations-container {
+    max-width: 1100px;
+    min-height: 650px;
+    margin: 30px auto;
+    border: 3px solid #222;
+    border-radius: 40px;
+    overflow: hidden;
+    background-color: white;
+}
+
+/* Page header */
+
+.my-reservations-header {
+    padding: 35px 40px 25px;
+    border-bottom: 3px solid #222;
+    text-align: center;
+}
+
+.my-reservations-header h1 {
+    font-size: 38px;
+    font-weight: 600;
+    margin-bottom: 35px;
+}
+
+/* Reservation tabs */
+
+.reservation-tabs {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.reservation-tab {
+    min-width: 170px;
+    padding: 8px 20px;
+    border: 3px solid #222;
+    border-radius: 14px;
+    background-color: white;
+    font-size: 22px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+/* Hover effect */
+
+.reservation-tab:hover {
+    background-color: #015a3e;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Active tab */
+
+.reservation-tab.active {
+    background-color: #015a3e;
+    color: white;
+}
+
+/* Empty content area */
+
+.reservations-content {
+    padding: 25px;
+    min-height: 400px;
+}
+/* My reservations page */
+
+.my-reservations-container {
+    max-width: 1100px;
+    min-height: 650px;
+    margin: 30px auto;
+    border: 3px solid #222;
+    border-radius: 40px;
+    overflow: hidden;
+    background-color: white;
+}
+
+/* Page header */
+
+.my-reservations-header {
+    padding: 35px 40px 25px;
+    border-bottom: 3px solid #222;
+    text-align: center;
+}
+
+    .my-reservations-header h1 {
+        font-size: 38px;
+        font-weight: 600;
+        margin-bottom: 35px;
+    }
+
+/* Reservation tabs */
+
+.reservation-tabs {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.reservation-tab {
+    min-width: 170px;
+    padding: 8px 20px;
+    border: 3px solid #222;
+    border-radius: 14px;
+    background-color: white;
+    font-size: 22px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+    /* Hover effect */
+
+    .reservation-tab:hover {
+        background-color: #015a3e;
+        color: white;
+        transform: translateY(-3px);
+    }
+
+    /* Active tab */
+
+    .reservation-tab.active {
+        background-color: #015a3e;
+        color: white;
+    }
+
+/* Empty content area */
+
+.reservations-content {
+    padding: 25px;
+    min-height: 400px;
 }
