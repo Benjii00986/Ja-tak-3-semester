@@ -2,7 +2,6 @@
 using JaTak.DataAccess.Models;
 using JaTak.DataAccess.Repositories.Interfaces;
 using Moq;
-using NUnit.Framework;
 
 namespace JaTak.Tests.Services
 {
@@ -98,7 +97,7 @@ namespace JaTak.Tests.Services
         }
 
         [Test]
-        public void Test05_CreateReservation_UserNotFound_ThrowsInvalidOperationException()
+        public void Test05_CreateReservation_UserNotFound_ThrowsKeyNotFoundException()
         {
             // Arrange
             var userRepository = new Mock<IJaTakUserRepository>();
@@ -117,11 +116,11 @@ namespace JaTak.Tests.Services
                 await service.CreateReservationAsync(KeycloakId, 1, 1);
 
             // Assert
-            Assert.ThrowsAsync<InvalidOperationException>(act);
+            Assert.ThrowsAsync<KeyNotFoundException>(act);
         }
 
         [Test]
-        public void Test06_CreateReservation_OfferNotFound_ThrowsInvalidOperationException()
+        public void Test06_CreateReservation_OfferNotFound_ThrowsKeyNotFoundException()
         {
             // Arrange
             var userRepository = new Mock<IJaTakUserRepository>();
@@ -145,7 +144,7 @@ namespace JaTak.Tests.Services
                 await service.CreateReservationAsync(KeycloakId, 1, 1);
 
             // Assert
-            Assert.ThrowsAsync<InvalidOperationException>(act);
+            Assert.ThrowsAsync<KeyNotFoundException>(act);
         }
 
         [Test]

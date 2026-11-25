@@ -1,4 +1,5 @@
-﻿using JaTak.DataAccess.Models;
+﻿using System.Collections.Generic;
+using JaTak.DataAccess.Models;
 using JaTak.DataAccess.Repositories.Interfaces;
 
 namespace JaTak.BusinessLogic.Services
@@ -40,6 +41,12 @@ namespace JaTak.BusinessLogic.Services
                     "Du skal være logget ind for at reservere.", nameof(keycloakId));
             }
 
+            if (offerId <= 0)
+            {
+                throw new ArgumentException(
+                    "Ugyldigt tilbuds-ID.", nameof(offerId));
+            }
+
             if (quantity <= 0)
             {
                 throw new ArgumentException(
@@ -51,16 +58,23 @@ namespace JaTak.BusinessLogic.Services
 
             if (user == null)
             {
-                throw new InvalidOperationException(
+                throw new KeyNotFoundException(
                     "Brugerprofilen blev ikke fundet.");
             }
 
-            Offer? offer = await _offerRepository.GetOfferByIdAsync(offerId);
+            Offer? offer =
+                await _offerRepository.GetOfferByIdAsync(offerId);
 
-            if (offer == null || !offer.IsActive)
+            if (offer == null)
+            {
+                throw new KeyNotFoundException(
+                    "Tilbuddet blev ikke fundet.");
+            }
+
+            if (!offer.IsActive)
             {
                 throw new InvalidOperationException(
-                    "Tilbuddet findes ikke eller er ikke længere aktivt.");
+                    "Tilbuddet er ikke længere aktivt.");
             }
 
             if (quantity > offer.QuantityLeft)
