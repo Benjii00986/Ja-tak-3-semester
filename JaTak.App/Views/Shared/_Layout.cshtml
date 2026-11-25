@@ -50,9 +50,29 @@
                     <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-2 py-3 py-sm-0">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
-                            <span class="text-muted small me-sm-2">
-                                @(User.FindFirst("email")?.Value ?? User.Identity.Name)
-                            </span>
+                            string email = User.FindFirst("email")?.Value ?? "";
+                            string initials = email.Length >= 2
+                                ? email.Substring(0, 2).ToUpper()
+                                : "?";
+
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle jatak-profile-btn"
+                                        type="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <span class="jatak-avatar">@initials</span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end jatak-profile-menu">
+                                    <li class="px-3 py-2 d-flex align-items-center gap-2">
+                                        <span class="jatak-avatar">@initials</span>
+                                        <span>Email</span>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><span class="dropdown-item">Mine reservationer</span></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><span class="dropdown-item">Log ud</span></li>
+                                </ul>
+                            </div>
 
                             <form asp-controller="Account" asp-action="Logout" method="post" class="m-0">
                                 <button type="submit" class="btn btn-jatak rounded-pill px-4">

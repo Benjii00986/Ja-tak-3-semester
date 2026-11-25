@@ -37,6 +37,8 @@ builder.Services
 
         options.SaveTokens = true;
 
+        options.MapInboundClaims = false;
+
         options.Scope.Add("openid");
         options.Scope.Add("profile");
         options.Scope.Add("email");
