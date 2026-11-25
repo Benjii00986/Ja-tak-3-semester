@@ -438,3 +438,40 @@ body {
     padding: 25px;
     min-height: 400px;
 }
+
+/* Reservation list */
+
+.reservation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.reservation-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    border: 2px solid #222;
+    border-radius: 12px;
+}
+
+.reservation-status {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+    .reservation-status.active {
+        background-color: #198754;
+    }
+
+    .reservation-status.completed {
+        background-color: #dc3545;
+    }
+
+.reservation-name {
+    font-size: 20px;
+    font-weight: 500;
+}

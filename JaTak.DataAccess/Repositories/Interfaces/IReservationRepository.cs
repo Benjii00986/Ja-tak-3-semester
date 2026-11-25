@@ -8,5 +8,7 @@ namespace JaTak.DataAccess.Repositories.Interfaces
     public interface IReservationRepository
     {
         Task<int?> CreateReservationAsync(Reservation reservation);
+
+        Task<List<ReservationOverview>> GetReservationsByUserIdAsync(int userId);
     }
 }

@@ -33,6 +33,48 @@ namespace JaTak.WebApi.Controllers
         }
 
         /// <summary>
+        /// Retrieves all reservations belonging to the authenticated user.
+        /// </summary>
+        /// <returns>
+        /// HTTP 200 OK with the user's reservations,
+        /// HTTP 401 Unauthorized if the user is not authenticated,
+        /// HTTP 404 Not Found if the user profile cannot be found.
+        /// </returns>
+        [HttpGet("my")]
+        public async Task<IActionResult> GetMyReservations()
+        {
+            string? keycloakId =
+                User.FindFirst("sub")?.Value ??
+                User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrWhiteSpace(keycloakId))
+            {
+                return Unauthorized();
+            }
+
+            try
+            {
+                var reservations =
+                    await _reservationService.GetReservationsByUserAsync(keycloakId);
+
+                List<ReservationOverviewDto> reservationDtos = reservations
+                    .Select(reservation => new ReservationOverviewDto
+                    {
+                        ReservationId = reservation.ReservationId,
+                        ProductName = reservation.ProductName,
+                        IsCompleted = reservation.IsCompleted
+                    })
+                    .ToList();
+
+                return Ok(reservationDtos);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Creates a reservation for the authenticated user.
         /// </summary>
         /// <param name="reservationDto">

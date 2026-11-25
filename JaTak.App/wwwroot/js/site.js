@@ -96,3 +96,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+
+// Switches between active and completed reservations.
+const reservationTabs = document.querySelectorAll(".reservation-tab");
+
+if (reservationTabs.length > 0) {
+    reservationTabs.forEach(function (tab, index) {
+        tab.addEventListener("click", function () {
+            reservationTabs.forEach(function (button) {
+                button.classList.remove("active");
+            });
+
+            tab.classList.add("active");
+
+            document.getElementById("active-reservations").style.display =
+                index === 0 ? "flex" : "none";
+
+            document.getElementById("completed-reservations").style.display =
+                index === 1 ? "flex" : "none";
+        });
+    });
+}

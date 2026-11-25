@@ -108,5 +108,57 @@ namespace JaTak.DataAccess.Repositories
                 throw;
             }
         }
+
+        /// <summary>
+        /// Retrieves all reservations belonging to a specific user.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <returns>A list of the user's reservations.</returns>
+        public async Task<List<ReservationOverview>> GetReservationsByUserIdAsync(int userId)
+        {
+            List<ReservationOverview> reservations = new List<ReservationOverview>();
+
+            using SqlConnection connection =
+                _connectionFactory.CreateConnection();
+
+            await connection.OpenAsync();
+
+            string query = """
+                SELECT
+                    r.ReservationId,
+                    o.ProductName,
+                    o.PickupEndDateTime
+                FROM JaTakReservations r
+                INNER JOIN JaTakOffers o ON r.OfferId = o.OfferId
+                WHERE r.UserId = @UserId
+                ORDER BY r.ReservedAt DESC
+                """;
+
+            using SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@UserId", userId);
+
+            using SqlDataReader reader = await command.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                ReservationOverview reservation = new ReservationOverview
+                {
+                    ReservationId = reader.GetInt32(reader.GetOrdinal("ReservationId")),
+                    ProductName = reader.GetString(reader.GetOrdinal("ProductName")),
+                    PickupEndDateTime = reader.IsDBNull(reader.GetOrdinal("PickupEndDateTime"))
+                        ? null
+                        : reader.GetDateTime(reader.GetOrdinal("PickupEndDateTime"))
+                };
+
+                reservation.IsCompleted =
+                    reservation.PickupEndDateTime.HasValue &&
+                    reservation.PickupEndDateTime.Value < DateTime.Now;
+
+                reservations.Add(reservation);
+            }
+
+            return reservations;
+        }
     }
 }

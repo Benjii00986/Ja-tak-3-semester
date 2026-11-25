@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<JaTak.App.ViewModels.ReservationOverviewViewModel>
+@{
     ViewData["Title"] = "Mine reservationer";
 }
 
@@ -21,6 +22,29 @@
     </div>
 
     <div class="reservations-content">
+
+    <div id="active-reservations" class="reservation-list">
+
+        @foreach (var reservation in Model.Where(r => !r.IsCompleted))
+        {
+            <div class="reservation-item">
+                <span class="reservation-status active"></span>
+                <span class="reservation-name">@reservation.ProductName</span>
+            </div>
+        }
+
+    </div>
+
+    <div id="completed-reservations" class="reservation-list" style="display: none;">
+
+        @foreach (var reservation in Model.Where(r => r.IsCompleted))
+        {
+            <div class="reservation-item">
+                <span class="reservation-status completed"></span>
+                <span class="reservation-name">@reservation.ProductName</span>
+            </div>
+        }
+
     </div>
 
 </div>

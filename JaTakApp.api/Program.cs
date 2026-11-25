@@ -30,7 +30,28 @@ builder.Services.AddScoped<ReservationService>();
 
 // Registers services for API documentation and Swagger.
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// Registers services for API documentation and Swagger.
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = Microsoft.OpenApi.SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = Microsoft.OpenApi.ParameterLocation.Header,
+        Description = "Enter your Keycloak access token."
+    });
+
+    options.AddSecurityRequirement(document =>
+        new Microsoft.OpenApi.OpenApiSecurityRequirement
+        {
+            [new Microsoft.OpenApi.OpenApiSecuritySchemeReference("Bearer", document)] = new List<string>()
+        });
+});
 
 // Configures JWT authentication using Keycloak.
 builder.Services
@@ -91,3 +112,4 @@ app.MapControllers();
 
 // Starts the application.
 app.Run();
+
