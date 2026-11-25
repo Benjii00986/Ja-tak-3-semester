@@ -11,7 +11,8 @@ namespace JaTak.WebApi.Controllers
 {
     /// <summary>
     /// Handles HTTP requests related to reservations.
-    /// Provides endpoints for creating reservations.
+    /// Provides endpoints for creating reservations and returns
+    /// appropriate HTTP responses based on the result.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
@@ -38,8 +39,11 @@ namespace JaTak.WebApi.Controllers
         /// Contains the offer ID and requested quantity.
         /// </param>
         /// <returns>
-        /// HTTP 201 Created if the reservation is successful;
-        /// otherwise, an appropriate error response.
+        /// HTTP 201 Created if the reservation is successful,
+        /// HTTP 400 Bad Request if the input is invalid,
+        /// HTTP 401 Unauthorized if the user is not authenticated,
+        /// HTTP 404 Not Found if the user or offer cannot be found,
+        /// HTTP 409 Conflict if the offer is inactive or there is insufficient stock.
         /// </returns>
         [HttpPost]
         public async Task<IActionResult> CreateReservation(
@@ -68,9 +72,13 @@ namespace JaTak.WebApi.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
             catch (InvalidOperationException ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return Conflict(new { message = ex.Message });
             }
         }
     }
