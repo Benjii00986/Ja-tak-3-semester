@@ -267,5 +267,55 @@ namespace JaTak.Tests.Services
             reservationRepository.Verify(x => x.GetReservationsByUserIdAsync(5), Times.Once);
             reservationRepository.VerifyNoOtherCalls();
         }
+
+        [Test]
+        public async Task Test11_GetReservationsByUser_NoReservations_ReturnsEmptyList()
+        {
+            // Arrange
+            var userRepository = new Mock<IJaTakUserRepository>();
+            var reservationRepository = new Mock<IReservationRepository>();
+
+            userRepository
+                .Setup(x => x.GetByKeycloakIdAsync(KeycloakId))
+                .ReturnsAsync(new JaTakUser { UserId = 5 });
+
+            reservationRepository
+                .Setup(x => x.GetReservationsByUserIdAsync(5))
+                .ReturnsAsync(new List<ReservationOverview>());
+
+            var service = new ReservationService(
+                reservationRepository.Object,
+                Mock.Of<IOfferRepository>(),
+                userRepository.Object);
+
+            // Act
+            var actual = await service.GetReservationsByUserAsync(KeycloakId);
+
+            // Assert
+            Assert.That(actual, Is.Empty);
+        }
+
+        [Test]
+        public void Test12_GetReservationsByUser_UserNotFound_ThrowsKeyNotFoundException()
+        {
+            // Arrange
+            var userRepository = new Mock<IJaTakUserRepository>();
+
+            userRepository
+                .Setup(x => x.GetByKeycloakIdAsync(KeycloakId))
+                .ReturnsAsync((JaTakUser?)null);
+
+            var service = new ReservationService(
+                Mock.Of<IReservationRepository>(),
+                Mock.Of<IOfferRepository>(),
+                userRepository.Object);
+
+            // Act
+            AsyncTestDelegate act = async () =>
+                await service.GetReservationsByUserAsync(KeycloakId);
+
+            // Assert
+            Assert.ThrowsAsync<KeyNotFoundException>(act);
+        }
     }
 }
