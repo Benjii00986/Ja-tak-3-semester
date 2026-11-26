@@ -117,3 +117,13 @@ if (reservationTabs.length > 0) {
         });
     });
 }
+
+// Opens the details of the selected reservation.
+document.querySelectorAll(".reservation-item").forEach(function (item) {
+    item.addEventListener("click", function () {
+        const reservationId = item.dataset.reservationId;
+
+        const modalElement = document.getElementById("reservation-details-modal");
+        bootstrap.Modal.getOrCreateInstance(modalElement).show();
+    });
+});

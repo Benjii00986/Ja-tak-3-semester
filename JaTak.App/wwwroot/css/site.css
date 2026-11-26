@@ -456,6 +456,24 @@ body {
     border-radius: 12px;
 }
 
+button.reservation-item {
+    width: 100%;
+    background-color: #fff;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+    button.reservation-item:hover {
+        background-color: #f5f5f5;
+    }
+
+.reservation-arrow {
+    margin-left: auto;
+    font-size: 18px;
+}
+
 .reservation-status {
     width: 14px;
     height: 14px;
@@ -523,4 +541,9 @@ body {
     color: #dc3545;
     padding: 40px 0;
     margin: 0;
+}
+
+/* Reservation details modal */
+#reservation-details-modal .btn-close {
+    opacity: 1;
 }
