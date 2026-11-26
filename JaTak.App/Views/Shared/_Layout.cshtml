@@ -13,7 +13,10 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3 jatak-header">
             <div class="container-fluid px-4">
-                <a class="navbar-brand jatak-brand" asp-area="" asp-controller="Offers" asp-action="Index">JaTak</a>
+                <a class="navbar-brand jatak-brand"
+                   asp-area=""
+                   asp-controller="Offers"
+                   asp-action="Index">JaTak</a>
 
                 <button class="navbar-toggler"
                         type="button"
@@ -39,8 +42,7 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark fw-medium"
-                                   asp-controller="MyReservations"
-                                   asp-action="Index">
+                                   href="/MineReservationer">
                                     Mine reservationer
                                 </a>
                             </li>
@@ -62,22 +64,35 @@
                                         aria-expanded="false">
                                     <span class="jatak-avatar">@initials</span>
                                 </button>
+
                                 <ul class="dropdown-menu dropdown-menu-end jatak-profile-menu">
                                     <li class="px-3 py-2 d-flex align-items-center gap-2">
                                         <span class="jatak-avatar">@initials</span>
                                         <span class="text-truncate">@email</span>
                                     </li>
+
                                     <li><hr class="dropdown-divider"></li>
-                                    <a class="dropdown-item" href="/MyReservations">Mine reservationer</a>
-                                    <li><hr class="dropdown-divider"></li>
+
                                     <li>
-                                        <form asp-controller="Account" asp-action="Logout" method="post" class="m-0">
-                                            <button type="submit" class="dropdown-item">Log ud</button>
+                                        <a class="dropdown-item" href="/MineReservationer">
+                                            Mine reservationer
+                                        </a>
+                                    </li>
+
+                                    <li><hr class="dropdown-divider"></li>
+
+                                    <li>
+                                        <form asp-controller="Account"
+                                              asp-action="Logout"
+                                              method="post"
+                                              class="m-0">
+                                            <button type="submit" class="dropdown-item">
+                                                Log ud
+                                            </button>
                                         </form>
                                     </li>
                                 </ul>
                             </div>
-
                         }
                         else
                         {
