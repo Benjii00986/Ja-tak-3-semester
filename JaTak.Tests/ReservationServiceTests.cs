@@ -243,5 +243,29 @@ namespace JaTak.Tests.Services
             // Assert
             Assert.ThrowsAsync<InvalidOperationException>(act);
         }
+
+        [Test]
+        public async Task Test10_GetReservationsByUser_OnlyFetchesOwnReservations()
+        {
+            // Arrange
+            var userRepository = new Mock<IJaTakUserRepository>();
+            var reservationRepository = new Mock<IReservationRepository>();
+
+            userRepository
+                .Setup(x => x.GetByKeycloakIdAsync(KeycloakId))
+                .ReturnsAsync(new JaTakUser { UserId = 5 });
+
+            var service = new ReservationService(
+                reservationRepository.Object,
+                Mock.Of<IOfferRepository>(),
+                userRepository.Object);
+
+            // Act
+            await service.GetReservationsByUserAsync(KeycloakId);
+
+            // Assert
+            reservationRepository.Verify(x => x.GetReservationsByUserIdAsync(5), Times.Once);
+            reservationRepository.VerifyNoOtherCalls();
+        }
     }
 }
