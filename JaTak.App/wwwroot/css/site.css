@@ -543,6 +543,16 @@ button.reservation-item {
     margin: 0;
 }
 
+/* Profile dropdown arrow */
+.jatak-profile-btn.dropdown-toggle::after {
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Rotate arrow when dropdown is open */
+.jatak-profile-btn.dropdown-toggle.show::after {
+    transform: rotate(180deg);
+}
+
 /* Reservation details modal */
 #reservation-details-modal .btn-close {
     opacity: 1;
