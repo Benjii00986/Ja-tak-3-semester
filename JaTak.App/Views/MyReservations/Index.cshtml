@@ -26,11 +26,14 @@
     <div id="active-reservations" class="reservation-list">
 
         @foreach (var reservation in Model.Where(r => !r.IsCompleted))
-        {
-            <div class="reservation-item">
-                <span class="reservation-status active"></span>
-                <span class="reservation-name">@reservation.ProductName</span>
-            </div>
+            {
+                <button type="button"
+                        class="reservation-item"
+                        data-reservation-id="@reservation.ReservationId">
+                    <span class="reservation-status active"></span>
+                    <span class="reservation-name">@reservation.ProductName</span>
+                    <span class="reservation-arrow">&#9662;</span>
+                </button>
             }
             @if (!Model.Any(r => !r.IsCompleted))
             {
@@ -42,11 +45,14 @@
     <div id="completed-reservations" class="reservation-list" style="display: none;">
 
         @foreach (var reservation in Model.Where(r => r.IsCompleted))
-        {
-            <div class="reservation-item">
-                <span class="reservation-status completed"></span>
-                <span class="reservation-name">@reservation.ProductName</span>
-            </div>
+            {
+                <button type="button"
+                        class="reservation-item"
+                        data-reservation-id="@reservation.ReservationId">
+                    <span class="reservation-status completed"></span>
+                    <span class="reservation-name">@reservation.ProductName</span>
+                    <span class="reservation-arrow">&#9662;</span>
+                </button>
         }
             @if (!Model.Any(r => r.IsCompleted))
             {
@@ -55,4 +61,19 @@
 
     </div>
 
+</div>
+</div>
+
+<div class="modal fade" id="reservation-details-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Reservationsdetaljer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Luk"></button>
+            </div>
+            <div class="modal-body" id="reservation-details-body">
+                Detaljerne kommer her.
+            </div>
+        </div>
+    </div>
 </div>

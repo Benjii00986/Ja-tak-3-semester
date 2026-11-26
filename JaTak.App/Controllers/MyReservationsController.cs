@@ -6,6 +6,7 @@ using System.Net.Http.Json;
 namespace JaTak.App.Controllers
 {
     [Authorize]
+    [Route("MineReservationer")]
     public class MyReservationsController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
