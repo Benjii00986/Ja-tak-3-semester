@@ -70,15 +70,14 @@
                                     <li><hr class="dropdown-divider"></li>
                                     <li><span class="dropdown-item">Mine reservationer</span></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><span class="dropdown-item">Log ud</span></li>
+                                    <li>
+                                        <form asp-controller="Account" asp-action="Logout" method="post" class="m-0">
+                                            <button type="submit" class="dropdown-item">Log ud</button>
+                                        </form>
+                                    </li>
                                 </ul>
                             </div>
 
-                            <form asp-controller="Account" asp-action="Logout" method="post" class="m-0">
-                                <button type="submit" class="btn btn-jatak rounded-pill px-4">
-                                    Log ud
-                                </button>
-                            </form>
                         }
                         else
                         {
