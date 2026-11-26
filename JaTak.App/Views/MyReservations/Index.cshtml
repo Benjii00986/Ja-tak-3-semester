@@ -31,7 +31,11 @@
                 <span class="reservation-status active"></span>
                 <span class="reservation-name">@reservation.ProductName</span>
             </div>
-        }
+            }
+            @if (!Model.Any(r => !r.IsCompleted))
+            {
+                <p class="no-reservations-message">You currently have no reservations.</p>
+            }
 
     </div>
 
@@ -44,6 +48,10 @@
                 <span class="reservation-name">@reservation.ProductName</span>
             </div>
         }
+            @if (!Model.Any(r => r.IsCompleted))
+            {
+                <p class="no-reservations-message">You currently have no reservations.</p>
+            }
 
     </div>
 
