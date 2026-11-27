@@ -19,6 +19,8 @@ namespace JaTak.DataAccess.Models
         public int Quantity { get; set; }
 
         public DateTime ReservedAt { get; set; }
+
+        public string? PickupCode { get; set; }
     }
 
 }

@@ -87,7 +87,8 @@ namespace JaTak.BusinessLogic.Services
             {
                 UserId = user.UserId,
                 OfferId = offerId,
-                Quantity = quantity
+                Quantity = quantity,
+                PickupCode = Guid.NewGuid().ToString("N").Substring(0, 6).ToUpper()
             };
 
             int? reservationId =

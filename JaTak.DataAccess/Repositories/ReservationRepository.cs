@@ -77,10 +77,10 @@ namespace JaTak.DataAccess.Repositories
                 // Insert the reservation and retrieve its generated ID.
                 string insertQuery = """
                     INSERT INTO JaTakReservations
-                    (UserId, OfferId, Quantity, ReservedAt)
+                    (UserId, OfferId, Quantity, ReservedAt, PickupCode)
                     OUTPUT INSERTED.ReservationId
                     VALUES
-                    (@UserId, @OfferId, @Quantity, SYSUTCDATETIME())
+                    (@UserId, @OfferId, @Quantity, SYSUTCDATETIME(), @PickupCode)
                     """;
 
                 using SqlCommand insertCommand =
@@ -91,6 +91,9 @@ namespace JaTak.DataAccess.Repositories
 
                 insertCommand.Parameters.AddWithValue(
                     "@OfferId", reservation.OfferId);
+
+                insertCommand.Parameters.AddWithValue(
+                    "@PickupCode", reservation.PickupCode);
 
                 insertCommand.Parameters.AddWithValue(
                     "@Quantity", reservation.Quantity);
