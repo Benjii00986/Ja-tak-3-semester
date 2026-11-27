@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JaTak.App\JaTak.App.csproj" />
     <ProjectReference Include="..\JaTak.BusinessLogic\JaTak.BusinessLogic.csproj" />
     <ProjectReference Include="..\JaTak.DataAccess\JaTak.DataAccess.csproj" />
   </ItemGroup>
