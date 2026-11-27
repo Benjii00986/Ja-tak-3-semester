@@ -74,7 +74,7 @@ body {
     overflow: hidden;
     background: white;
     min-width: 0;
-    height: 360px;
+    height: 370px;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     display: flex;
@@ -122,11 +122,13 @@ body {
 /* Product information */
 
 .offer-information {
-    padding: 18px 16px;
+    padding: 18px 16px 28px;
     flex: 1;
     min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
-
     .offer-information h3 {
         font-size: 23px;
         font-weight: 600;
@@ -566,24 +568,56 @@ button.reservation-item {
     display: inline-block;
     margin-right: 6px;
 }
-}
+    /* Green: 50–100% remaining */
+    .offer-stock.stock-green {
+        color: #146C43; /* Dark Green */
+        background-color: #D1E7DD; /* Light Green */
+        border-color: #A3CFBB; /* Soft Green */
+    }
 
-/* Colors to indicate remaining stock */
+    /* Orange: 25–49% remaining */
+    .offer-stock.stock-orange {
+        color: #B75D0B; /* Dark Orange */
+        background-color: #FFF0D9; /* Light Orange */
+        border-color: #F3D3A5; /* Soft Orange */
+    }
+
+    /* Red: 0–24% remaining */
+    .offer-stock.stock-red {
+        color: #A51F2D; /* Dark Red */
+        background-color: #F8D7DA; /* Light Red */
+        border-color: #EFB8BE; /* Soft Red */
+    }
+
+/* Remaining stock badge */
+
+/* Remaining stock badge */
 
 .offer-stock {
-    margin-top: 0.35rem;
-    font-size: 0.9rem;
-    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: 0.6rem;
+    padding: 8px 12px;
+    border: 1px solid;
+    border-radius: 7px;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
 }
 
-    .offer-stock.stock-green {
-        color: #198754;
-    }
+/* Stock indicator dot */
 
-    .offer-stock.stock-orange {
-        color: #e67e22;
-    }
-
-    .offer-stock.stock-red {
-        color: #dc3545;
-    }
+.stock-dot {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: currentColor;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+}

@@ -87,7 +87,22 @@
                     }
 
                     <div class="offer-stock @stockColorClass">
-                        @stockText
+                        @if (offer.QuantityLeft == 0)
+                        {
+                            <span class="stock-dot"></span>
+                            <span>UDSOLGT</span>
+                        }
+                        else if (stockColorClass == "stock-green" ||
+                                 stockColorClass == "stock-orange")
+                        {
+                            <span class="stock-dot"></span>
+                            <span>@offer.QuantityLeft TILBAGE</span>
+                        }
+                        else
+                        {
+                            <span class="stock-dot"></span>
+                            <span>KUN @offer.QuantityLeft TILBAGE!</span>
+                        }
                     </div>
 
                 </div>
