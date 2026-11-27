@@ -10,5 +10,7 @@ namespace JaTak.DataAccess.Repositories.Interfaces
         Task<int?> CreateReservationAsync(Reservation reservation);
 
         Task<List<ReservationOverview>> GetReservationsByUserIdAsync(int userId);
+
+        Task<ReservationDetails?> GetReservationDetailsAsync(int reservationId, int userId);
     }
 }

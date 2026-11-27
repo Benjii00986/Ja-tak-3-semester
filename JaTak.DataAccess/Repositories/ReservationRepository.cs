@@ -160,5 +160,48 @@ namespace JaTak.DataAccess.Repositories
 
             return reservations;
         }
+
+        public async Task<ReservationDetails?> GetReservationDetailsAsync(int reservationId, int userId)
+        {
+            ReservationDetails? details = null;
+
+            using SqlConnection connection = _connectionFactory.CreateConnection();
+
+            string query = """
+                SELECT r.ReservationId, r.Quantity, r.PickupCode,
+                       o.ProductName, o.ImageUrl, o.ShopName, o.ShopAddress,
+                       o.PickupStartDateTime, o.PickupEndDateTime
+                FROM JaTakReservations r
+                INNER JOIN JaTakOffers o ON r.OfferId = o.OfferId
+                WHERE r.ReservationId = @ReservationId AND r.UserId = @UserId
+                """;
+
+            using SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@ReservationId", reservationId);
+            command.Parameters.AddWithValue("@UserId", userId);
+
+            await connection.OpenAsync();
+            using SqlDataReader reader = await command.ExecuteReaderAsync();
+
+            if (await reader.ReadAsync())
+            {
+                details = new ReservationDetails
+                {
+                    ReservationId = reader.GetInt32(reader.GetOrdinal("ReservationId")),
+                    Quantity = reader.GetInt32(reader.GetOrdinal("Quantity")),
+                    PickupCode = reader.IsDBNull(reader.GetOrdinal("PickupCode")) ? null : reader.GetString(reader.GetOrdinal("PickupCode")),
+                    ProductName = reader.GetString(reader.GetOrdinal("ProductName")),
+                    ImageUrl = reader.IsDBNull(reader.GetOrdinal("ImageUrl")) ? null : reader.GetString(reader.GetOrdinal("ImageUrl")),
+                    ShopName = reader.GetString(reader.GetOrdinal("ShopName")),
+                    ShopAddress = reader.IsDBNull(reader.GetOrdinal("ShopAddress")) ? null : reader.GetString(reader.GetOrdinal("ShopAddress")),
+                    PickupStartDateTime = reader.IsDBNull(reader.GetOrdinal("PickupStartDateTime")) ? null : reader.GetDateTime(reader.GetOrdinal("PickupStartDateTime")),
+                    PickupEndDateTime = reader.IsDBNull(reader.GetOrdinal("PickupEndDateTime")) ? null : reader.GetDateTime(reader.GetOrdinal("PickupEndDateTime"))
+                };
+
+                details.IsCompleted = details.PickupEndDateTime.HasValue && details.PickupEndDateTime.Value < DateTime.Now;
+            }
+
+            return details;
+        }
     }
 }

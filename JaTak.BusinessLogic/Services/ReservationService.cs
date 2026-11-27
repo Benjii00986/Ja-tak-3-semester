@@ -129,5 +129,33 @@ namespace JaTak.BusinessLogic.Services
 
             return await _reservationRepository.GetReservationsByUserIdAsync(user.UserId);
         }
+        public async Task<ReservationDetails> GetReservationDetailsAsync(string keycloakId, int reservationId)
+        {
+            if (string.IsNullOrWhiteSpace(keycloakId))
+            {
+                throw new ArgumentException(
+                    "Du skal være logget ind for at se reservationen.", nameof(keycloakId));
+            }
+
+            JaTakUser? user =
+                await _userRepository.GetByKeycloakIdAsync(keycloakId);
+
+            if (user == null)
+            {
+                throw new KeyNotFoundException(
+                    "Brugerprofilen blev ikke fundet.");
+            }
+
+            ReservationDetails? details =
+                await _reservationRepository.GetReservationDetailsAsync(reservationId, user.UserId);
+
+            if (details == null)
+            {
+                throw new KeyNotFoundException(
+                    "Reservationen blev ikke fundet.");
+            }
+
+            return details;
+        }
     }
 }

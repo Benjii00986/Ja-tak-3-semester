@@ -74,6 +74,45 @@ namespace JaTak.WebApi.Controllers
             }
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetReservationDetails(int id)
+        {
+            string? keycloakId =
+                User.FindFirst("sub")?.Value ??
+                User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrWhiteSpace(keycloakId))
+            {
+                return Unauthorized();
+            }
+
+            try
+            {
+                var details =
+                    await _reservationService.GetReservationDetailsAsync(keycloakId, id);
+
+                ReservationDetailsDto detailsDto = new ReservationDetailsDto
+                {
+                    ReservationId = details.ReservationId,
+                    ProductName = details.ProductName,
+                    ImageUrl = details.ImageUrl,
+                    ShopName = details.ShopName,
+                    ShopAddress = details.ShopAddress,
+                    Quantity = details.Quantity,
+                    PickupStartDateTime = details.PickupStartDateTime,
+                    PickupEndDateTime = details.PickupEndDateTime,
+                    PickupCode = details.PickupCode,
+                    IsCompleted = details.IsCompleted
+                };
+
+                return Ok(detailsDto);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+
         /// <summary>
         /// Creates a reservation for the authenticated user.
         /// </summary>
