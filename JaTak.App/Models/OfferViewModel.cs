@@ -65,9 +65,9 @@
         /// </summary>
         public int QuantityLeft { get; set; }
 
-        public string StockText =>
-            QuantityLeft <= 0 ? "Udsolgt" : $"{QuantityLeft} tilbage";
-
+        /// <summary>
+        /// Gets the CSS class used to indicate the remaining stock level.
+        /// </summary>
         public string StockColorClass
         {
             get
@@ -92,6 +92,27 @@
                 }
 
                 return "stock-green";
+            }
+        }
+
+        /// <summary>
+        /// Gets the text displayed in the remaining stock indicator.
+        /// </summary>
+        public string StockText
+        {
+            get
+            {
+                if (QuantityLeft <= 0)
+                {
+                    return "UDSOLGT";
+                }
+
+                if (StockColorClass == "stock-red")
+                {
+                    return $"KUN {QuantityLeft} TILBAGE!";
+                }
+
+                return $"{QuantityLeft} TILBAGE";
             }
         }
     }
