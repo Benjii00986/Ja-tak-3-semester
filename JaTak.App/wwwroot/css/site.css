@@ -139,6 +139,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     gap: 12px;
 }
 
@@ -591,8 +592,6 @@ button.reservation-item {
 
 /* Remaining stock badge */
 
-/* Remaining stock badge */
-
 .offer-stock {
     display: inline-flex;
     align-items: center;
@@ -619,5 +618,5 @@ button.reservation-item {
     flex-shrink: 0;
     border-radius: 50%;
     background-color: currentColor;
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+    /* box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15); */
 }
