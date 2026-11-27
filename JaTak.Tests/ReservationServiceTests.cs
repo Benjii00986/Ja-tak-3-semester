@@ -317,5 +317,60 @@ namespace JaTak.Tests.Services
             // Assert
             Assert.ThrowsAsync<KeyNotFoundException>(act);
         }
+        [Test]
+        public async Task Test13_GetReservationDetails_OwnReservation_ReturnsDetails()
+        {
+            // Arrange
+            var userRepository = new Mock<IJaTakUserRepository>();
+            var reservationRepository = new Mock<IReservationRepository>();
+
+            userRepository
+                .Setup(x => x.GetByKeycloakIdAsync(KeycloakId))
+                .ReturnsAsync(new JaTakUser { UserId = 5 });
+
+            reservationRepository
+                .Setup(x => x.GetReservationDetailsAsync(1, 5))
+                .ReturnsAsync(new ReservationDetails { ReservationId = 1 });
+
+            var service = new ReservationService(
+                reservationRepository.Object,
+                Mock.Of<IOfferRepository>(),
+                userRepository.Object);
+
+            // Act
+            var actual = await service.GetReservationDetailsAsync(KeycloakId, 1);
+
+            // Assert
+            Assert.That(actual.ReservationId, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Test14_GetReservationDetails_NotFoundOrOtherUser_ThrowsKeyNotFoundException()
+        {
+            // Arrange
+            var userRepository = new Mock<IJaTakUserRepository>();
+            var reservationRepository = new Mock<IReservationRepository>();
+
+            userRepository
+                .Setup(x => x.GetByKeycloakIdAsync(KeycloakId))
+                .ReturnsAsync(new JaTakUser { UserId = 5 });
+
+            reservationRepository
+                .Setup(x => x.GetReservationDetailsAsync(99, 5))
+                .ReturnsAsync((ReservationDetails?)null);
+
+            var service = new ReservationService(
+                reservationRepository.Object,
+                Mock.Of<IOfferRepository>(),
+                userRepository.Object);
+
+            // Act
+            AsyncTestDelegate act = async () =>
+                await service.GetReservationDetailsAsync(KeycloakId, 99);
+
+            // Assert
+            Assert.ThrowsAsync<KeyNotFoundException>(act);
+        }
+
     }
 }
