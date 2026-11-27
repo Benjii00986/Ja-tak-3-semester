@@ -26,5 +26,23 @@ namespace JaTak.App.Controllers
 
             return View(reservations ?? new List<ReservationOverviewViewModel>());
         }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> Details(int id)
+        {
+            HttpClient client = _httpClientFactory.CreateClient("JaTakApi");
+
+            HttpResponseMessage response = await client.GetAsync($"api/Reservations/{id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return NotFound();
+            }
+
+            ReservationDetailsViewModel? details =
+                await response.Content.ReadFromJsonAsync<ReservationDetailsViewModel>();
+
+            return PartialView("_ReservationDetails", details);
+        }
     }
 }

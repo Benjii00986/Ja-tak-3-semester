@@ -555,6 +555,17 @@ button.reservation-item {
 #reservation-details-modal .btn-close {
     opacity: 1;
 }
+.reservation-details-image {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.reservation-details .reservation-status {
+    display: inline-block;
+    margin-right: 6px;
+}
 }
 
 /* Colors to indicate remaining stock */

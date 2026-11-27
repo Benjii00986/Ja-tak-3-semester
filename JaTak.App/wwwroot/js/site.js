@@ -120,8 +120,17 @@ if (reservationTabs.length > 0) {
 
 // Opens the details of the selected reservation.
 document.querySelectorAll(".reservation-item").forEach(function (item) {
-    item.addEventListener("click", function () {
+    item.addEventListener("click", async function () {
         const reservationId = item.dataset.reservationId;
+        const modalBody = document.getElementById("reservation-details-body");
+
+        const response = await fetch("/MineReservationer/" + reservationId);
+
+        if (response.ok) {
+            modalBody.innerHTML = await response.text();
+        } else {
+            modalBody.innerHTML = "<p>Reservationen kunne ikke hentes.</p>";
+        }
 
         const modalElement = document.getElementById("reservation-details-modal");
         bootstrap.Modal.getOrCreateInstance(modalElement).show();
