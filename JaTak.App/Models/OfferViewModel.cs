@@ -64,5 +64,35 @@
         /// Gets or sets the remaining quantity available.
         /// </summary>
         public int QuantityLeft { get; set; }
+
+        public string StockText =>
+            QuantityLeft <= 0 ? "Udsolgt" : $"{QuantityLeft} tilbage";
+
+        public string StockColorClass
+        {
+            get
+            {
+                if (QuantityLeft <= 0)
+                {
+                    return "stock-red";
+                }
+
+                double ratio = Quantity > 0
+                    ? (double)QuantityLeft / Quantity
+                    : 0;
+
+                if (ratio < 0.25)
+                {
+                    return "stock-red";
+                }
+
+                if (ratio < 0.50)
+                {
+                    return "stock-orange";
+                }
+
+                return "stock-green";
+            }
+        }
     }
 }
