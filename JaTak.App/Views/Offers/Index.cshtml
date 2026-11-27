@@ -54,46 +54,14 @@
 
                     </div>
 
-                @{
-                        string stockText;
-                        string stockColorClass;
-
-                        if (offer.QuantityLeft <= 0)
-                        {
-                            stockText = "Udsolgt";
-                            stockColorClass = "stock-red";
-                        }
-                        else
-                        {
-                            double ratio = offer.Quantity > 0
-                                ? (double)offer.QuantityLeft / offer.Quantity
-                                : 0;
-
-                            stockText = $"{offer.QuantityLeft} tilbage";
-
-                            if (ratio < 0.25)
-                            {
-                                stockColorClass = "stock-red";
-                            }
-                            else if (ratio < 0.50)
-                            {
-                                stockColorClass = "stock-orange";
-                            }
-                            else
-                            {
-                                stockColorClass = "stock-green";
-                            }
-                        }
-                    }
-
-                    <div class="offer-stock @stockColorClass">
+                    <div class="offer-stock @offer.StockColorClass">
                         @if (offer.QuantityLeft == 0)
                         {
                             <span class="stock-dot"></span>
                             <span>UDSOLGT</span>
                         }
-                        else if (stockColorClass == "stock-green" ||
-                                 stockColorClass == "stock-orange")
+                        else if (offer.StockColorClass == "stock-green" ||
+                                 offer.StockColorClass == "stock-orange")
                         {
                             <span class="stock-dot"></span>
                             <span>@offer.QuantityLeft TILBAGE</span>
