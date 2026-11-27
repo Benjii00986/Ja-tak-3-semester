@@ -23,7 +23,7 @@ body {
 .btn-link.nav-link:focus,
 .form-control:focus,
 .form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #015a3e; /* Dark Green */
 }
 
 /* Placeholder styling for floating form fields. */
@@ -69,15 +69,13 @@ body {
 /* Offer card */
 
 .offer-card {
-    border: 2px solid #222;
+    border: 2px solid #222; /* Very Dark Gray */
     border-radius: 24px;
     overflow: hidden;
     background: white;
     min-width: 0;
     height: 360px;
-    /* Indicates that the offer card is clickable. */
     cursor: pointer;
-    /* Smooth transition when hovering over an offer. */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     display: flex;
     flex-direction: column;
@@ -105,7 +103,7 @@ body {
     height: 220px;
     min-height: 220px;
     width: 100%;
-    border-bottom: 2px solid #222;
+    border-bottom: 2px solid #222; /* Very Dark Gray */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -194,7 +192,7 @@ body {
     height: 200px;
     width: 100%;
     object-fit: contain;
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6; /* Light Gray */
     padding-bottom: 20px;
     margin-bottom: 20px;
 }
@@ -255,7 +253,7 @@ body {
     text-align: center;
     font-size: 20px;
     font-weight: 600;
-    border: 2px solid #222;
+    border: 2px solid #222; /* Very Dark Gray */
     border-radius: 12px;
     user-select: text;
 }
@@ -283,22 +281,22 @@ body {
 /* JaTak buttons */
 
 .btn-jatak {
-    --bs-btn-color: #fff;
-    --bs-btn-bg: #015a3e;
-    --bs-btn-border-color: #015a3e;
-    --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #01452f;
-    --bs-btn-hover-border-color: #01452f;
-    --bs-btn-active-color: #fff;
-    --bs-btn-active-bg: #01452f;
-    --bs-btn-active-border-color: #01452f;
+    --bs-btn-color: #fff; /* White */
+    --bs-btn-bg: #015a3e; /* Dark Green */
+    --bs-btn-border-color: #015a3e; /* Dark Green */
+    --bs-btn-hover-color: #fff; /* White */
+    --bs-btn-hover-bg: #01452f; /* Darker Green */
+    --bs-btn-hover-border-color: #01452f; /* Darker Green */
+    --bs-btn-active-color: #fff; /* White */
+    --bs-btn-active-bg: #01452f; /* Darker Green */
+    --bs-btn-active-border-color: #01452f; /* Darker Green */
 }
 
 /* Checkmark in the reservation confirmation popup */
 
 .jatak-success-icon {
     font-size: 50px;
-    color: #015a3e;
+    color: #015a3e; /* Dark Green */
 }
 /* My reservations page */
 
@@ -306,7 +304,7 @@ body {
     max-width: 1100px;
     min-height: 650px;
     margin: 30px auto;
-    border: 3px solid #222;
+    border: 3px solid #222; /* Very Dark Gray */
     border-radius: 40px;
     overflow: hidden;
     background-color: white;
@@ -316,7 +314,7 @@ body {
 
 .my-reservations-header {
     padding: 35px 40px 25px;
-    border-bottom: 3px solid #222;
+    border-bottom: 3px solid #222; /* Very Dark Gray */
     text-align: center;
 }
 
@@ -339,7 +337,7 @@ body {
 .reservation-tab {
     min-width: 170px;
     padding: 8px 20px;
-    border: 3px solid #222;
+    border: 3px solid #222; /* Very Dark Gray */
     border-radius: 14px;
     background-color: white;
     font-size: 22px;
@@ -351,7 +349,7 @@ body {
 /* Hover effect */
 
 .reservation-tab:hover {
-    background-color: #015a3e;
+    background-color: #015a3e; /* Dark Green */
     color: white;
     transform: translateY(-3px);
 }
@@ -359,7 +357,7 @@ body {
 /* Active tab */
 
 .reservation-tab.active {
-    background-color: #015a3e;
+    background-color: #015a3e; /* Dark Green */
     color: white;
 }
 
@@ -375,7 +373,7 @@ body {
     max-width: 1100px;
     min-height: 650px;
     margin: 30px auto;
-    border: 3px solid #222;
+    border: 3px solid #222; /* Very Dark Gray */
     border-radius: 40px;
     overflow: hidden;
     background-color: white;
@@ -385,7 +383,7 @@ body {
 
 .my-reservations-header {
     padding: 35px 40px 25px;
-    border-bottom: 3px solid #222;
+    border-bottom: 3px solid #222; /* Very Dark Gray */
     text-align: center;
 }
 
@@ -408,7 +406,7 @@ body {
 .reservation-tab {
     min-width: 170px;
     padding: 8px 20px;
-    border: 3px solid #222;
+    border: 3px solid #222; /* Very Dark Gray */
     border-radius: 14px;
     background-color: white;
     font-size: 22px;
@@ -420,7 +418,7 @@ body {
     /* Hover effect */
 
     .reservation-tab:hover {
-        background-color: #015a3e;
+        background-color: #015a3e; /* Dark Green */
         color: white;
         transform: translateY(-3px);
     }
@@ -428,7 +426,7 @@ body {
     /* Active tab */
 
     .reservation-tab.active {
-        background-color: #015a3e;
+        background-color: #015a3e; /* Dark Green */
         color: white;
     }
 
@@ -452,13 +450,13 @@ body {
     align-items: center;
     gap: 15px;
     padding: 15px 20px;
-    border: 2px solid #222;
+    border: 2px solid #222; /* Very Dark Gray */
     border-radius: 12px;
 }
 
 button.reservation-item {
     width: 100%;
-    background-color: #fff;
+    background-color: #fff; /* White */
     color: inherit;
     font: inherit;
     text-align: left;
@@ -466,7 +464,7 @@ button.reservation-item {
 }
 
     button.reservation-item:hover {
-        background-color: #f5f5f5;
+        background-color: #f5f5f5; /* Very Light Gray */
     }
 
 .reservation-arrow {
@@ -482,11 +480,11 @@ button.reservation-item {
 }
 
     .reservation-status.active {
-        background-color: #198754;
+        background-color: #198754; /* Green */
     }
 
     .reservation-status.completed {
-        background-color: #dc3545;
+        background-color: #dc3545; /* Red */
     }
 
 .reservation-name {
@@ -500,8 +498,8 @@ button.reservation-item {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background-color: #015a3e;
-    color: #fff;
+    background-color: #015a3e; /* Dark Green */
+    color: #fff; /* White */
     font-size: 14px;
     font-weight: 600;
     display: inline-flex;
@@ -538,7 +536,7 @@ button.reservation-item {
 .no-reservations-message {
     text-align: center;
     font-size: 20px;
-    color: #dc3545;
+    color: #dc3545; /* Red */
     padding: 40px 0;
     margin: 0;
 }
@@ -557,3 +555,24 @@ button.reservation-item {
 #reservation-details-modal .btn-close {
     opacity: 1;
 }
+}
+
+/* Colors to indicate remaining stock */
+
+.offer-stock {
+    margin-top: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+    .offer-stock.stock-green {
+        color: #198754;
+    }
+
+    .offer-stock.stock-orange {
+        color: #e67e22;
+    }
+
+    .offer-stock.stock-red {
+        color: #dc3545;
+    }

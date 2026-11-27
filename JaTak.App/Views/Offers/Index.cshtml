@@ -54,6 +54,42 @@
 
                     </div>
 
+                @{
+                        string stockText;
+                        string stockColorClass;
+
+                        if (offer.QuantityLeft <= 0)
+                        {
+                            stockText = "Udsolgt";
+                            stockColorClass = "stock-red";
+                        }
+                        else
+                        {
+                            double ratio = offer.Quantity > 0
+                                ? (double)offer.QuantityLeft / offer.Quantity
+                                : 0;
+
+                            stockText = $"{offer.QuantityLeft} tilbage";
+
+                            if (ratio < 0.25)
+                            {
+                                stockColorClass = "stock-red";
+                            }
+                            else if (ratio < 0.50)
+                            {
+                                stockColorClass = "stock-orange";
+                            }
+                            else
+                            {
+                                stockColorClass = "stock-green";
+                            }
+                        }
+                    }
+
+                    <div class="offer-stock @stockColorClass">
+                        @stockText
+                    </div>
+
                 </div>
 
             </div>
